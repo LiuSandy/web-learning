@@ -4,9 +4,23 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
+    <my-addition></my-addition>
+    <my-subtraction></my-subtraction>
   </div>
 </template>
+
+<script>
+import Addition from './components/Addition'
+import Subtraction from './components/Subtraction'
+
+export default {
+  components: {
+    'my-addition': Addition,
+    'my-subtraction': Subtraction
+  }
+}
+</script>
 
 <style>
 #app {
