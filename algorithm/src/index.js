@@ -51,6 +51,9 @@ import SquaresofaSortedArray from './SquaresofaSortedArray'
 import findRedundantDirectedConnection from './findRedundantDirectedConnection'
 import longestSubarray from './longestSubarray'
 import summaryRanges from './summaryRanges'
+import matrixScore from './ScoreAfterFlippingMatrix'
+import conver from './ZigZagConversion'
+import UniquePaths from './UniquePaths'
 // twoSum([3,2,4],6)
 // addTwoNumbers(1,2)
 // lengthOfLongestSubstring("dvdf")
@@ -113,4 +116,6 @@ import summaryRanges from './summaryRanges'
 // Insertion.sort(array)
 // console.log(array);
 // console.log(SquaresofaSortedArray([-3, -2, -1, 4, 5, 6])); // 1,4,9,16,25,36
-console.log(summaryRanges([0,1,2,4,5,7]))
+// console.log(summaryRanges([0,1,2,4,5,7]))
+// matrixScore([[0,0,1,1],[1,0,1,0],[1,1,0,0]])
+UniquePaths(3,2)

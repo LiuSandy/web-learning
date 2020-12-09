@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 0 50px 150px;
   text-align: center;
   box-sizing: border-box;
@@ -26,4 +26,10 @@ svg .country:hover {
   stroke: black;
   stroke-width: 1px;
   cursor: pointer;
+}
+
+button {
+  width: 100px;
+  border: 1px solid black;
+  margin: 0 auto 5px;
 }

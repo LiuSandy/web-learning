@@ -23,8 +23,6 @@ const Index = () => {
   useEffect(() => {
     const svg = select(svgRef.current)
 
-    console.log("innerHeight", innerHeight);
-
     const xScale = scaleLinear().domain([0, data.length - 1]).range([0, innerWidth]);
 
     const yScale = scaleLinear().domain([0, innerHeight]).range([innerHeight, 0]);
