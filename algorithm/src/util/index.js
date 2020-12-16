@@ -6,14 +6,14 @@
  * @returns 根据 num 返回数组中所有的排列组合,如果为 0 返回所有的
  */
 export function permutationAndCombination(array, num = 0) {
-    const allGroup = array.reduce((a, b) => {
-        return a.concat(a.map(item => item.concat(b)))
-    }, [[]])
-    if (!num) {
-        return allGroup
-    } else {
-        return allGroup.filter(group => group.length === num)
-    }
+  const allGroup = array.reduce((a, b) => {
+    return a.concat(a.map(item => item.concat(b)))
+  }, [[]])
+  if (!num) {
+    return allGroup
+  } else {
+    return allGroup.filter(group => group.length === num)
+  }
 }
 
 /**
@@ -21,7 +21,7 @@ export function permutationAndCombination(array, num = 0) {
  * @param array 需要求和的函数
  */
 export function sum(array) {
-    return array.reduce((a, b) => a + b)
+  return array.reduce((a, b) => a + b)
 }
 
 /**
@@ -31,11 +31,11 @@ export function sum(array) {
  * @returns true [index,max] false max
  */
 export function max(array, index = false) {
-    const max = Math.max.apply(null, array)
-    if (!index) {
-        return max
-    }
-    return [array.indexOf(max), max]
+  const max = Math.max.apply(null, array)
+  if (!index) {
+    return max
+  }
+  return [array.indexOf(max), max]
 }
 
 /**
@@ -45,11 +45,11 @@ export function max(array, index = false) {
  * @returns true [index,min] false min
  */
 export function min(array, index = false) {
-    const min = Math.min.apply(null, array)
-    if (!index) {
-        return min
-    }
-    return [array.indexOf(min), min]
+  const min = Math.min.apply(null, array)
+  if (!index) {
+    return min
+  }
+  return [array.indexOf(min), min]
 }
 
 /**
@@ -58,29 +58,52 @@ export function min(array, index = false) {
  * @returns 去重后的二维数组
  */
 export function delRepeat(array) {
-    let res = {}
-    arr.forEach(item => {
-        item.sort((a, b) => a - b);
-        res[item] = item;
-    });
-    return Object.values(res)
+  let res = {}
+  arr.forEach(item => {
+    item.sort((a, b) => a - b);
+    res[item] = item;
+  });
+  return Object.values(res)
 }
 
 /**
  * 实现 python 的 range 函数
  */
 export function range(start, end, step = 1) {
-    let newArr = []
-    for (let i = start; i < end; i++) {
-        if (i % step === 0) {
-            newArr.push(i)
-        }
+  let newArr = []
+  for (let i = start; i < end; i++) {
+    if (i % step === 0) {
+      newArr.push(i)
     }
-    return newArr
+  }
+  return newArr
+}
+
+/**
+ * 数组元素交换位置
+ */
+export function swapArray(arr, index1, index2) {
+  arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+  return arr;
+}
+
+/**
+ * 二维数组去重
+ */
+export const deDuplication = array => {
+  const result = [];
+  const map = {};
+  for (const item of array) {
+    if (!map[item]) {
+      result.push(item);
+      map[item] = item
+    }
+  }
+  return result
 }
 
 export default {
-    permutationAndCombination,
-    sum,
-    range
+  permutationAndCombination,
+  sum,
+  range
 }

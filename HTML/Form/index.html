@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 所有触发keypress 事件的非字符键的charCode 都是0，而在Safari 3 之前这些键的 charCode 都是8。 -->
+  <!-- 
+    所有触发 keypress 事件的非字符键的 charCode 都是 0;
+    在 Safari 3 之前，这些键都是 8
+  -->
+  
+  <form id="myForm" action="#">
+    <input type="text" value="value">
+    <select name="location" id="selLocation">
+      <option value="Sunnyvale, CA">Sunnyvale</option>
+      <option value="Los Angeles, CA">Los Angeles</option>
+      <option value="Mountain View, CA">Mountain View</option>
+      <option value="">China</option>
+      <option>Australia</option>
+    </select>
+    <textarea name="textArea" cols="30" rows="10">initial value</textarea>
+    <input type="submit" value="Submit Form">
+  </form>
+  <hr />
+  <form id="secondForm" action="#">
+    <input type="text" value="second initial value">
+    <textarea name="textArea" cols="30" rows="10">second initial value</textarea>
+    <input type="submit" value="Submit Form">
+  </form>
+  <script>
+
+    window.addEventListener("load", () => {
+      frames["richedit"].document.designMode = "on";
+    });
+
+    // document .forms["form ID or Form 索引"] .elements["name"]
+    const form = document.forms["myForm"];
+    const textarea = form.elements['textArea'];
+    const selectbox = form.elements.location;
+    // 选中 text value
+    const text = selectbox.options[0].text;
+    const value = selectbox.options[0].value;
+
+    console.log("text", text, value)
+
+    // 选中 textarea 中内容
+    // textarea.select();
+    // select 事件监听
+    textarea.addEventListener("select", event => {
+      console.log("event", event, textarea.selectionStart)
+      // console.log(`Text selected: ${textarea.value}`);
+    })
+    textarea.addEventListener("keypress", event => {
+      console.log("keypress", event.charCode, String.fromCharCode(event.charCode))
+    })
+
+    textarea.addEventListener("paste", event => {
+      const clipboardData = getClipboardText(event);
+      console.log("clipboardData", clipboardData)
+    })
+
+    /**
+      let form = document.getElementById("myForm");
+      form.addEventListener("submit", (event) => {
+        // 阻止表单提交
+        event.preventDefault();
+      });
+    */
+
+    // 获得剪切板值
+    function getClipboardText(event) {
+      const clipboardData = event.clipboardData || window.clipboardData;
+      return clipboardData.getData("text")
+    }
+
+    function setClipboardText(event, value) {
+      if (event.clipboardData) {
+        return event.clipboardData.setData("text/plain", value);
+      } else if (window.clipboardData) {
+        return window.clipboardData.setData("text", value);
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="drawing" width="200" height="200">A drawing of something.</canvas>
+  <script>
+    const drawing = document.getElementById("drawing");
+    if (drawing.getContext) {
+      const gl = drawing.getContext("webgl", { alpha: false })
+      try {
+        // 
+        gl.clearColor(0, 0, 0, 1);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        gl.viewport(0, 0, drawing.width / 2, drawing.height / 2);
+
+        console.log("GL", gl);
+      } catch (error) {
+        // 当前浏览器不支持 WebGL
+      }
+
+    }
+  </script>
+</body>
+
+</html>

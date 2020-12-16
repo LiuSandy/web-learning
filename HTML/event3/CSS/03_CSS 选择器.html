@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 
+      常用选择器
+
+      元素选择器：通过标签名选中指定的元素
+        例如：p {}; div {}
+
+      ID 选择器：根据元素的ID属性值选择一个元素
+      
+      CLASS 选择器：根据元素的 class 属性值选择一组元素
+        可以为一个标签指定多个 class
+
+      通配选择器：选择页面中的所有元素
+
+      组合选择器(交集选择器)：选中同事符合多个条件的元素
+          选择器1选择器2.。。。
+
+      选择器分组(并选择器)：同时选择多个选择器对应的元素
+          选择器1,选择器2，。。。
+
+    */
+    /* p{
+      color: tomato;
+    } 
+
+    h1 {
+      color: deeppink;
+    }
+
+    #pink {
+      color: pink;
+    }
+
+    .blue {
+      color: blue;
+    }
+
+    .pink {
+      color: deeppink;
+    }
+
+    div.pink{
+      font-size: 30px;
+    }
+
+    h1, span {
+      color: greenyellow;
+    }
+    */
+
+    /* 
+      关系元素
+      父元素
+        - 直接包含子元素的元素叫做父元素
+      子元素
+        - 直接被父元素包含的元素是子元素
+      祖先元素
+        - 直接或间接包含后代元素的元素叫做祖先元素
+        - 一个元素的父元素也是他的祖先元素
+      后代元素
+        - 直接或间接被祖先元素包含的元素叫做后代元素
+      兄弟元素
+        - 拥有相同父元素的元素是兄弟元素
+    */
+
+    /* 
+      为 div 的子元素 span 设置一个字体颜色 
+
+      子元素选择器：
+        作用：选中指定父元素的指定子元素
+        语法：父元素 > 子元素
+    */
+    /* div > span {
+      color: hotpink;
+    } */
+
+    /* 
+      后代元素选择器：
+        作用：选中指定祖先元素的内的指定后代元素
+        语法：祖先元素 后代元素
+    */
+
+    /* div span {
+      color: lightseagreen;
+    } */
+
+    /* 
+      选择下一个兄弟：
+        语法：第一个 + 下一个
+      选择下边所有的兄弟元素
+        语法：第一个 ~ 下面所有
+    */
+    p~span {
+      color: limegreen;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>我是标题</h1>
+  <span>我是 span</span>
+  <p class="blue">数风流人物</p>
+  <p class="pink">还看今朝</p>
+  <hr>
+  <p>欲穷千里目</p>
+  <p class="blue">更上一层楼</p>
+
+  <div class="pink">我是div</div>
+
+  <hr>
+  <h2> 关系元素 </h2>
+  <div>
+    我是一个div
+    <p>
+      我是 div 里面的 p 标签
+      <span>
+        我是 p 元素中的span
+      </span>
+    </p>
+    <div>我是第三者</div>
+    <span>
+      我是 div 元素中的 第一个 span
+    </span>
+    <span>
+      我是 div 元素中的 第二个 span
+    </span>
+    <span>
+      我是 div 元素中的 第三个 span
+    </span>
+  </div>
+  <span> 我是 div 外面的 span </span>
+
+</body>
+
+</html>

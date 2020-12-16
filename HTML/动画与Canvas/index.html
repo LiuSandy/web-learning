@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="drawing" width="200" height="200">A drawing of something.</canvas>
+  <script>
+    const drawing = document.getElementById("drawing");
+    if (drawing.getContext) {
+      const context = drawing.getContext("2d");
+      // 绘制矩形
+      // drawRect(context)
+
+      // 绘制圆形
+      drawCircle(context);
+
+    }
+
+    function drawCircle(context) {
+      // 创建路径
+      context.beginPath();
+
+      // 绘制外圆 x,y,radius startAngle endAngle,counterclockwise 
+      // x,y 圆心坐标 radius 半径 startAngle: 起始角度; endAngle: 结束角度
+      // counterclockwise 是否逆时针，默认为顺时针
+      context.arc(100, 100, 99, 0, 2 * Math.PI, false)
+      // 绘制内圆
+      context.arc(100, 100, 90, 0, 2 * Math.PI, false)
+
+      // 绘制分针
+      // 移动光标位置至 x y
+      context.moveTo(100, 100);
+      // 绘制一条从上一点到 x y 的线 上一点（100,100）
+      context.lineTo(100, 15);
+      
+      // 绘制时针
+      context.moveTo(100, 100);
+      context.lineTo(35, 100);
+
+      // 描画路径
+      context.stroke();
+    }
+
+    function drawRect(context) {
+      // 绘制红色矩形
+      context.fillStyle = "#ff0000";
+      context.fillRect(10, 10, 50, 50);
+      // 蓝色边框
+      context.strokeStyle = "#0000ff";
+      context.strokeRect(10, 10, 50, 50);
+      // 绘制蓝色透明矩形
+      context.fillStyle = "rgba(0,0,255,0.5)";
+      context.fillRect(30, 30, 50, 50);
+      // 红色边框
+      context.strokeStyle = "#ff0000";
+      context.strokeRect(30, 30, 50, 50);
+
+      // 擦除一个矩形
+      context.clearRect(40, 40, 10, 10)
+    }
+
+  </script>
+</body>
+
+</html>
