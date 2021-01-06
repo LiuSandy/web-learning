@@ -16,6 +16,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-jwt": "^4.0.0",
     "koa-router": "^8.0.8",
+    "koa2-cors": "^2.0.6",
     "mocha": "^7.1.2",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",

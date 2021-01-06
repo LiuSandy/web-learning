@@ -13,7 +13,7 @@
     所有触发 keypress 事件的非字符键的 charCode 都是 0;
     在 Safari 3 之前，这些键都是 8
   -->
-  
+
   <form id="myForm" action="#">
     <input type="text" value="value">
     <select name="location" id="selLocation">
@@ -33,10 +33,6 @@
     <input type="submit" value="Submit Form">
   </form>
   <script>
-
-    window.addEventListener("load", () => {
-      frames["richedit"].document.designMode = "on";
-    });
 
     // document .forms["form ID or Form 索引"] .elements["name"]
     const form = document.forms["myForm"];

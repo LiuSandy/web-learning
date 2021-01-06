@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IndexedDB</title>
+</head>
+
+<body>
+
+  <script>
+    let db, request, version = 3;
+
+    request = indexedDB.open('admin', version);
+
+    request.onerror = (error) => {
+      console.log("error", error);
+    }
+
+    request.onsuccess = event => {
+      console.log("success");
+      db = event.target.result;
+      if (db.objectStoreNames.contains("users")) {
+        db.deleteObjectStore("users");
+      }
+      db.createObjectStore("users", { keyPath: "username" });
+    }
+
+  </script>
+</body>
+
+</html>

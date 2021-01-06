@@ -1,20 +1,3 @@
-// const promise = val => {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(resolve(val), 1000)
-//   })
-// }
-
-
-// const promise2 = promise("XXX").then(reason => {
-//   console.log(reason);
-//   return {
-
-//   }
-// })
-
-// promise2.then(reason=>{
-//   console.log("promise2", reason);
-// })
 
 class CustomPromise {
   constructor(handleFunc) {
@@ -117,6 +100,12 @@ class CustomPromise {
   static resole(val) {
     return new CustomPromise((resolve, reject) => {
       resolve(val)
+    })
+  }
+
+  static reject(val) {
+    return new CustomPromise((resolve, reject) => {
+      reject(val)
     })
   }
 

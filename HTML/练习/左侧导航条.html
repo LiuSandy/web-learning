@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <style>
+    body {
+      background-color: #bfa;
+    }
+
+    .left-nav {
+      width: 190px;
+      height: 450px;
+      padding: 10px 0;
+      background-color: #f4f4f4;
+      margin: 50px auto;
+    }
+
+    /* 设置菜单内部item */
+    .left-nav .item {
+      height: 25px;
+      /* 让一个文字在父元素中垂直居中，
+        只需要将line-height设置和父元素height一样高
+       */
+      line-height: 25px;
+      padding-left: 18px;
+      font-size: 12px;
+    }
+
+    .left-nav .item:hover {
+      background-color: #d9d9d9;
+    }
+
+    /* 设置超链接的样式 */
+    .item a {
+      font-size: 14px;
+      color: #333333;
+      text-decoration: none;
+    }
+
+    .item a:hover{
+      color: #c81623;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 创建一个外部容器: nav div ul -->
+  <nav class="left-nav">
+    <div class="item">
+      <a href="#">家用电器</a>
+    </div>
+    <div class="item">
+      <a href="#">手机</a>/
+      <a href="#">运营商</a>/
+      <a href="#">数码</a>
+    </div>
+  </nav>
+
+</body>
+
+</html>

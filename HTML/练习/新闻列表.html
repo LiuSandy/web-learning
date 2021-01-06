@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <style>
+    body {
+      background-color: #bfa;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .news-wrapper {
+      width: 300px;
+      height: 350px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+    }
+
+    .news-title {
+      display: inline-block;
+      height: 30px;
+      border-top: 1px solid red;
+      margin-top: -1px;
+      padding-top: 10px;
+    }
+
+    /* 设置title 超链接样式 */
+    .news-title a {
+      /* 取消超链接下划线 */
+      text-decoration: none;
+      color: #404040;
+      font-weight: bold;
+    }
+
+    .news-img {
+      height: 150px;
+    }
+
+    /* 设置图片的文字效果 */
+    .news-img .img-title {
+      margin-top: -30px;
+      color: #ffffff;
+      font-weight: bold;
+      padding-left: 30px;
+    }
+
+    /* 设置新闻列表 */
+    .news-list {
+      margin-top: 20px;
+    }
+
+    .news-list li {
+      margin-bottom: 17px;
+      /* padding-left: 14px; */
+    }
+
+    .news-list li::before {
+      content: "⊙";
+      color: rgb(218, 218, 218);
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    .news-list li a {
+      font-size: 14px;
+      color: #666666;
+    }
+
+    .news-list li a:hover {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="news-wrapper">
+    <!-- 创建一个标题标签 -->
+    <h2 class="news-title">
+      <a href="">体育</a>
+    </h2>
+    <!-- 创建一个图片容器 -->
+    <div class="news-img">
+      <a href="">
+        <img
+          src="https://cms-bucket.ws.126.net/2020/1221/0653a31ej00qlo1u50043c000s600e3c.jpg?imageView&thumbnail=300y150&type=webp"
+          alt="">
+        <!-- 创建图片标题 -->
+        <h3 class="img-title">
+          创建图片标题 创建图片标题
+          </h2>
+      </a>
+    </div>
+    <!-- 新闻列表 -->
+    <ul class="news-list">
+      <li><a href="">新闻1</a></li>
+      <li><a href="">新闻2</a></li>
+      <li><a href="">新闻3</a></li>
+      <li><a href="">新闻4</a></li>
+    </ul>
+  </div>
+</body>
+
+</html>

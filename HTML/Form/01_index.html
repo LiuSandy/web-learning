@@ -1,16 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #droptarget {
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      border: 1px solid #dddddd;
+    }
+  </style>
 </head>
+
 <body>
   <h1>Hello World</h1>
+  <input type="file" name="file-list" id="file-list">
+  <div draggable="true" id="droptarget">
+    拖拽文件
+  </div>
+  <template id="foo">
+    <p>I'm inside a template!</p>
+  </template>
+  <div id="output"></div>
+  <!-- <iframe id="myFrame" src="http://127.0.0.1:5500/Form/index.html" frameborder="0"></iframe> -->
   <script>
-    window.addEventListener("load",()=>{
-      document.designMode="on"
+    // const iframeWindow = document.getElementById("myFrame").contentWindow
+
+    // iframeWindow.postMessage("A secret", "http://127.0.0.1:5500/Form/01_index.html")
+
+    // Document Fragment
+    const fooElement = document.querySelector("#foo");
+    const outputElement = document.querySelector("#output");
+    const fooFragment = fooElement.content;
+
+    console.log("fooFragment",fooFragment)
+
+    outputElement.appendChild(fooFragment)
+
+    document.addEventListener("visibilitychange", event => {
+      console.log("change", event, document.visibilityState)
+    })
+
+    // const n = new Notification('Title text!');
+
+    // n.onshow = () => { console.log("开始显示 Notification") }
+    // n.onclick = () => console.log('Notification was clicked!');
+    // n.onclose = () => console.log('Notification was closed!');
+    // n.onerror = (e) => {
+    //   console.log(e)
+    //   console.log('Notification experienced an error!')
+    // };
+
+    const droptarget = document.getElementById("droptarget");
+
+    function handleEvent(event) {
+      // 取消冒泡
+      event.preventDefault();
+      if (event.type === "drop") {
+        const file = event.dataTransfer.files
+        console.log(file)
+      }
+
+    }
+
+    droptarget.addEventListener("dragenter", handleEvent)
+    droptarget.addEventListener("dragover", handleEvent)
+    droptarget.addEventListener("drop", handleEvent)
+
+
+
+
+
+    const fileList = document.getElementById("file-list");
+
+    fileList.addEventListener("change", event => {
+      const selectFile = event.target.files[0];
+      console.log(selectFile);
+      const reader = new FileReader();
+      if (/image/.test(selectFile.type)) {
+        const url = window.URL.createObjectURL(selectFile);
+        const output = document.getElementById("output");
+        output.innerHTML = `<img src=${url} />`
+        console.log("url", url)
+      } else {
+        const blob = new Blob([selectFile]).slice(0, 30)
+        if (blob) {
+          reader.readAsText(blob)
+          reader.onload = () => {
+            console.log(reader.result, selectFile.type);
+          }
+        }
+      }
+
+    })
+
+    window.addEventListener("load", () => {
+      document.designMode = "on"
     })
   </script>
 </body>
+
 </html>

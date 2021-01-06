@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XHR</title>
+</head>
+
+<body>
+
+  <script>
+    (function () {
+      fetchFun()
+
+    })();
+
+    class CookieUtil {
+      static get(name) {
+        let cookieName = `${encodeURIComponent(name)}=`,
+          cookieStart = document.cookie.indexOf(cookieName),
+          cookieValue = null;
+        if (cookieStart > -1) {
+          let cookieEnd = document.cookie.indexOf(";", cookieStart);
+          if (cookieEnd == -1) {
+            cookieEnd = document.cookie.length;
+          }
+          cookieValue = decodeURIComponent(document.cookie.substring(cookieStart
+            + cookieName.length, cookieEnd));
+        }
+        return cookieValue;
+      }
+      static set(name, value, expires, path, domain, secure) {
+        let cookieText =
+          `${encodeURIComponent(name)}=${encodeURIComponent(value)}`
+        if (expires instanceof Date) {
+          cookieText += `; expires=${expires.toGMTString()}`;
+        }
+        if (path) {
+          cookieText += `; path=${path}`;
+        }
+        if (domain) {
+          cookieText += `; domain=${domain}`;
+        }
+        if (secure) {
+          cookieText += "; secure";
+        }
+        document.cookie = cookieText;
+      }
+      static unset(name, path, domain, secure) {
+        CookieUtil.set(name, "", new Date(0), path, domain, secure);
+      }
+    };
+
+    function fetchFun() {
+      fetch('https://fetch.spec.whatwg.org/')
+        .then((response) => response.body)
+        .then((body) => {
+          let reader = body.getReader();
+          console.log(reader); // ReadableStreamDefaultReader {}
+          reader.read()
+            .then(console.log);
+        });
+    }
+
+    function XMLHttpRequestFun() {
+      const data = new FormData();
+      data.append("name", "lius")
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://127.0.0.1:4000/users');
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(data);
+      xhr.onreadystatechange = () => {
+        console.log("--->", xhr)
+      }
+    }
+  </script>
+</body>
+
+</html>
