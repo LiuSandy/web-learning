@@ -1,38 +1,42 @@
 import React from 'react';
 import { Todo } from '@/models';
+import { CombinedState, TodosState } from '@/store/reducers'
+import { addTodo } from '@/store/actions/todos'
+import { connect } from 'react-redux'
+import { RouteComponentProps } from 'react-router-dom';
+import { StaticContext } from "react-router";
 import TodoItem from './TodoItem'
 import TodoInput from './TodoInput'
 
-interface Props {
-
+const actions = {
+  addTodo
 }
 
-interface State {
-  todos: Array<Todo>
-}
+export interface TodoLocationState { name?: string }
 
-export default class Index extends React.Component<Props, State> {
+type Props = TodosState & typeof actions & RouteComponentProps<{}, StaticContext, TodoLocationState>
 
-  state = {
-    todos: [] as Array<Todo>
-  }
+
+class Index extends React.Component<Props> {
 
   addTodo = (todo: Todo) => {
-    this.setState({ todos: [...this.state.todos, todo] })
+    this.props.addTodo(todo)
   }
 
   public render() {
-    const { todos } = this.state
+    const { list, location } = this.props
     return (
       <div>
+        <p>name:{location.state.name}</p>
         <TodoInput addTodo={this.addTodo} />
         {
-          todos.map(todo => (
+          list.map((todo: Todo) => (
             <TodoItem todo={todo} key={todo.id} />
           ))
         }
       </div>
     )
   }
-
 }
+const mapStateToProps = (state: CombinedState): TodosState => state.todos
+export default connect(mapStateToProps, actions)(Index)

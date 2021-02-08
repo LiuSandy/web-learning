@@ -10,6 +10,7 @@
 //     "jsx": "react",
 //     "baseUrl": ".",
 //     "esModuleInterop": true,
+//     "isolatedModules": true,
 //     "paths": {
 //       "@/*": ["./src/*"]
 //     }
@@ -27,7 +28,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
@@ -35,9 +36,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     // "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["./src/**/*"]

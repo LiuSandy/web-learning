@@ -1,7 +1,8 @@
 import React from 'react'
 import { Todo } from '@/models'
+import { DefaultProps, withDefaultProps } from '@/HOC'
 
-interface Props {
+interface OwnProps {
   addTodo: (todo: Todo) => void
 }
 
@@ -9,9 +10,11 @@ interface State {
   text: string
 }
 
+type Props = OwnProps & DefaultProps
+
 let id = 0;
 
-export default class TodoInput extends React.Component<Props, State> {
+class TodoInput extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { text: "" }
@@ -29,12 +32,15 @@ export default class TodoInput extends React.Component<Props, State> {
     this.setState({ text: "" })
   }
   render() {
+    const { setting } = this.props
     const { handleChange, handleSubmit } = this
     return (
       <form onSubmit={handleSubmit}>
-        <input type="text" value={this.state.text} onChange={handleChange} />
+        <input {...setting} type="text" value={this.state.text} onChange={handleChange} />
         <input type="submit" value="添加" />
       </form>
     )
   }
 }
+
+export default withDefaultProps(TodoInput)
