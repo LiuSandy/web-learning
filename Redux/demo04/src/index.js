@@ -1,15 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoList from "./TodoList";
-import { Provider } from 'react-redux'
-import store from './store'
-import 'antd/dist/antd.css';
-
+import './index.css';
+import App from './old/index';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <TodoList />
-  </Provider>,
+  <App />,
   document.getElementById('root')
 );
 

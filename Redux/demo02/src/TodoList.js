@@ -1,24 +1,22 @@
 import React, { Component } from "react";
 import { Input, Button, List } from "antd";
-import store from './store';
+import { connect } from 'react-redux'
 
 class TodoList extends Component {
-  constructor(props) {
-    super(props)
-    this.state=store.getState()
-  }
 
   clickBtn = () => {
-    console.log('ssd');
+    this.props.addTodo(this.props.inputValue)
   }
-
-  
 
   render() {
     return (
       <div>
         <div>
-          <Input value={this.state.inputValue} style={{ width: 250, marginRight: 10 }} />
+          <Input
+            onChange={this.props.inputChange}
+            value={this.props.inputValue}
+            style={{ width: 250, marginRight: 10 }}
+          />
           <Button
             type="primary"
             onClick={this.clickBtn}
@@ -27,7 +25,7 @@ class TodoList extends Component {
         <div style={{ margin: 10, width: 300 }}>
           <List
             bordered
-            dataSource={this.state.list}
+            dataSource={this.props.list}
             renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => { }}>删除</Button>}>{item}</List.Item>}
           />
         </div>
@@ -36,4 +34,25 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList
+const mapstateToProps = state => ({
+  ...state
+})
+
+const mapDispatchToProps=(dispatch)=>({
+  inputChange:e=>{
+    const action = {
+      type:'input_change',
+      value:e.target.value
+    }
+    dispatch(action)
+  },
+  addTodo:v=>{
+    dispatch({
+      type:'add',
+      value:v
+    })
+  }
+})
+
+export default connect(mapstateToProps, mapDispatchToProps)(TodoList)
+// export default TodoList
