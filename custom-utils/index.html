@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>防抖测试</title>
+  <title>Document</title>
 </head>
-
 <body>
-  <input type="text">
-  <script src="../../Function/debounce.js"></script>
+  <script src="./dist/custom-utils.js"></script>
+
   <script>
-    let input = document.querySelector('input');
-    input.onkeydown = debounce(function (e) {
-      console.log(e.keyCode)
-    }, 1000)
+    customUtils.test()
+    console.log(customUtils);
   </script>
 </body>
-
 </html>
