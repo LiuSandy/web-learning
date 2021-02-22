@@ -7,7 +7,7 @@
  * @param {Function} fn  事件回调
  * @param {String} selector 响应事件元素
  */
-function addEventListener(el, type, fn, selector) {
+export function addEventListener(el, type, fn, selector) {
   if (typeof el === 'string') {
     el = document.querySelector(el);
   }

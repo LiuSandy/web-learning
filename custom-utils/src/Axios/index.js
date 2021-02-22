@@ -1,4 +1,4 @@
-function axios({ method, url, params, data }) {
+export function axios({ method, url, params, data }) {
   // 请求类型归一化
   method = method.toUpperCase()
   // 返回一个Promise
@@ -59,3 +59,4 @@ axios.put = function (url, options) {
 axios.delete = function (url, options) {
   return axios(Object.assign(options, { method: "delete", url }))
 }
+

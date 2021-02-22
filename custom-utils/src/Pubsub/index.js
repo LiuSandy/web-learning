@@ -1,4 +1,4 @@
-const PubSub = {
+export const PubSub = {
   id: 0,
   // 订阅回调的容器
   callbacks: {}
