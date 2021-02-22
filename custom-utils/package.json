@@ -1,13 +1,21 @@
 {
-  "name": "custom-utils",
+  "name": "lius-custom-util",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/custom-utils.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:watch": "webpack --watch"
   },
-  "keywords": [],
+  "keywords": [
+    "array",
+    "utils",
+    "object",
+    "string",
+    "function",
+    "pub-sub",
+    "events"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
