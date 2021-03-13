@@ -35,3 +35,22 @@ var longestCommonPrefix = function(strs) {
   }
   return ans;
 };
+
+var longestCommonPrefix = function(strs){
+  // 特殊值判断一下
+	if(!strs.length) return "";
+  if(strs.length === 1) return strs[0];
+  // 拆分数组
+  const [first,...rest] = strs;
+  
+  let maxPrefix = "";
+  for(let i = 1;i<first.length+1;i++){
+  	const str = first.slice(0, i);
+    if(rest.every(item=>item.slice(0, i) === str)){
+    	maxPrefix = str
+    }else{
+      break
+    }
+  }
+  return maxPrefix
+}

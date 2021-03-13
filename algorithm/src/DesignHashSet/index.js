@@ -6,7 +6,7 @@
 /**
  * Initialize your data structure here.
  */
-var MyHashSet = function () {
+ var MyHashSet = function () {
   this.base = 769
   this.data = new Array(this.base).fill(0).map(() => new Array())
 };
@@ -17,11 +17,10 @@ var MyHashSet = function () {
  */
 MyHashSet.prototype.add = function (key) {
   const h = this.hash(key)
-  if (this.data[h].includes(h)) {
+  if (this.data[h].includes(key)) {
     return
   }
   this.data[h].push(key)
-
 };
 
 /** 
@@ -61,4 +60,3 @@ MyHashSet.prototype.hash = function (key) {
  * obj.remove(key)
  * var param_3 = obj.contains(key)
  */
-
