@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta http-equiv="Refresh" content="1"> -->
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid 布局</title>
+  <style>
+    .container {
+      display: grid;
+      height: 500px;
+      /* 
+        定义列的宽度
+        1. 在前面可以定义名称 [name],
+          eg. grid-template-columns: [name1]200px [name2]200px [name2]200px auto;
+        2. 单位 1fr 份数
+        3. 使用函数 repeat(num,size) size 重复使用多少次
+        4. 使用函数 minmax(min,max) 长度范围
+       */
+      grid-template-columns: 200px 200px 200px;
+      /* 定义行的高度 */
+      grid-template-rows: 200px 200px;
+      /* 定义行与行之间间距 */
+      /* row-gap: 10px; */
+      /* column-gap: 10px; */
+      /* 定义内容在网格内的水平对齐方式 */
+      justify-items: stretch;
+      /* 定义内容在网格内的垂直对齐方式 */
+      align-items: stretch;
+
+      justify-content: center;
+
+      /* align-content: space-between; */
+    }
+
+    .item {
+      border: 1px solid #eee;
+    }
+
+    .item-1 {
+      grid-column-start: span 2;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 3;
+    }
+  </style>
+</head>
+
+<body style="height: 500px;">
+  <div class="container">
+    <div class="item item-1" style="background-color: aquamarine;">1</div>
+    <div class="item" style="background-color: blueviolet;">2</div>
+    <div class="item" style="background-color: #bfa;">3</div>
+    <div class="item" style="background-color: cyan;">4</div>
+    <div class="item" style="background-color: darkgoldenrod;">5</div>
+  </div>
+  <script>
+    // console.log(new Date().getTime())
+    var str = "123";
+    var re = /\d/; // 匹配非数字
+    if (re.test(str)) {
+      console.log("不全是数字！");
+    } else {
+      console.log("全是数字！");
+    }
+    function fun1() {
+      var a = 2
+      function fun2() {
+        console.log(a);  //2
+      }
+      return fun2;
+    }
+    var result = fun1();
+    result();
+  </script>
+</body>
+
+</html>
