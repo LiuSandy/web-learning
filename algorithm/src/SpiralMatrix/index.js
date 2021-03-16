@@ -63,7 +63,7 @@ const spiralOrder = (matrix) => {
 			for (let i = column - 1; i > c; i--) {
 				result.push(matrix[row][i])
 			}
-			for (let i = row - 1; i > r; i--) {
+			for (let i = row; i > r; i--) {
 				result.push(matrix[i][r])
 			}
 		}
