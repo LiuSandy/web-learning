@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>如何画一条0.5px的边</title>
+  <style>
+    /* 1. 设置高度 0.5px */
+    .hr {
+      width: 300px;
+      background-color: #000;
+    }
+
+    .hr.half-px {
+      height: 1px;
+      transform: scaleY(0.5);
+      transform-origin: 50% 100%;
+    }
+
+    .hr.one-px {
+      height: 1px;
+    }
+
+    /* 2. 使用线性渐变 */
+    .hr.gradiend {
+      height: 1px;
+      background: linear-gradient(0deg, #fff, #000);
+    }
+
+    /* 3. 使用box-shadow */
+    .hr.boxshadow {
+      height: 1px;
+      background: none;
+      box-shadow: 0 0.5px 0 #000;
+    }
+  </style>
+</head>
+
+<body>
+  <p>0.5px</p>
+  <div class="hr half-px"></div>
+  <p>1px</p>
+  <div class="hr one-px"></div>
+  <p> 使用线性渐变</p>
+  <div class="hr gradiend"></div>
+  <p>使用box-shadow</p>
+  <div class="hr boxshadow"></div>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水平居中</title>
+  <style>
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: bisque;
+    }
+
+    /* 1. 设置div宽度，margin auto */
+    .box1 {
+      margin: 0 auto;
+    }
+
+    /* 2. 利用text-align */
+    .continer1 {
+      text-align: center;
+      font-size: 0;
+    }
+
+    .box1 {
+      display: inline-block;
+    }
+
+    /* 3. 利用绝对定位 */
+    .box1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+
+    /* 水平垂直居中 */
+    /* 1. 绝对定位 */
+    .box1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    /* 2. 利用transform */
+    .box1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* 3. 利用 flex 布局，需要指定父组件高度 */
+    .continer1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 500px;
+    }
+
+    /* 4. 利用 text-align 和 vertical-align */
+    .continer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      font-size: 0;
+      white-space: nowrap;
+      overflow: auto;
+    }
+
+    .continer::after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .box {
+      display: inline-block;
+      white-space: normal;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body class="continer">
+  <div class="box"></div>
+</body>
+
+</html>

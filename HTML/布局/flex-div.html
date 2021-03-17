@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="有一个高度自适应的div，里面有两个div，一个高度100px，希望另一个填满剩下的高度(三种方案)">
+  <title>Flex</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* 1. box-sizing 方案 */
+    /* .outer {
+      height: 100%;
+      box-sizing: border-box;
+      padding: 100px 0 0;
+    }
+
+    .A {
+      height: 100px;
+      margin: -100px 0 0;
+      background-color: blanchedalmond;
+    }
+
+    .B {
+      height: 100%;
+      background-color: blueviolet;
+    } */
+
+    /* 2. 利用absolute */
+    /* .outer {
+      position: relative;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 100px 0 0;
+      top: 0;
+      left: 0;
+    }
+
+    .A{
+      position: absolute;
+      height: 100px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: blueviolet;
+    }
+    .B {
+      height: 100%;
+      background-color: cadetblue;
+    } */
+
+    /* 3. 利用calc函数 */
+    /* .outer {
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .A {
+      height: 100px;
+      background-color: blueviolet;
+    }
+
+    .B {
+      height: calc(100% - 100px);
+      background-color: cadetblue;
+    } */
+
+    /* 4. 使用 absolute 设置B */
+    .outer {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .A {
+      height: 100px;
+      background-color: cyan;
+    }
+
+    .B {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 100px;
+      left: 0;
+      background-color: darksalmon;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="outer">
+    <div class="A"></div>
+    <div class="B"></div>
+  </div>
+</body>
+
+</html>
