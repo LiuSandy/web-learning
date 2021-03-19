@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上下固定中间自适应布局</title>
+  <style>
+    /* html,
+    body {
+      padding: 0;
+      margin: 0;
+    } */
+
+    /* 1. 使用绝对定位 */
+    /* .header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      position: absolute;
+      top: 100px;
+      bottom: 100px;
+      width: 100%;
+    }
+
+    .footer{
+      position: absolute;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+    } */
+    /* 2. 使用 flex 布局 */
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+
+    .header {
+      height: 200px;
+    }
+
+    .container {
+      flex-grow: 1;
+    }
+
+    .footer {
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header" style="background-color: aquamarine;"></div>
+  <div class="container" style="background-color: blueviolet;"></div>
+  <div class="footer" style="background-color: coral;"></div>
+
+</body>
+
+</html>
