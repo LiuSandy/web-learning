@@ -25,5 +25,6 @@ function flatter2(arr) {
   }
   return result
 }
-
+const result = flatter2([[1,1],2,[1,2]])
+console.log(result)
 module.exports = flatter2
