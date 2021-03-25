@@ -1,0 +1,1 @@
+export const ENTPOINT = "http://localhost:8080"
