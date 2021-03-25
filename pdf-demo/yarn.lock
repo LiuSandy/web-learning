@@ -8024,10 +8024,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pdfjs-dist@^2.2.228:
-  version "2.5.207"
-  resolved "https://registry.npm.taobao.org/pdfjs-dist/download/pdfjs-dist-2.5.207.tgz#b5e8c19627be64269cd3fb6df3eaaf45ddffe7b6"
-  integrity sha1-tejBlie+ZCac0/tt8+qvRd3/57Y=
+pdfjs-dist@2.4.456:
+  version "2.4.456"
+  resolved "https://registry.npm.taobao.org/pdfjs-dist/download/pdfjs-dist-2.4.456.tgz#0eaad2906cda866bbb393e79a0e5b4e68bd75520"
+  integrity sha1-DqrSkGzahmu7OT55oOW05ovXVSA=
 
 performance-now@^2.1.0:
   version "2.1.0"

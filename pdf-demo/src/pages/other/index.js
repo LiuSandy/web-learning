@@ -1,11 +1,11 @@
 import React from 'react'
-import { PDFViewer } from '../../components'
+import { SimpleViewer } from '../../components'
 
-const url = 'http://127.0.0.1:9002/p3.pdf'
+const url = 'http://127.0.0.1:9002/p0.pdf'
 
 const Index = props => {
     return (<div>
-        <PDFViewer url={url}/>
+        <SimpleViewer url={url} />
     </div>)
 }
 
