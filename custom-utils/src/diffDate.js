@@ -50,4 +50,4 @@ const diffDate = (begin, end) => {
   console.log(flag, result);
 };
 
-diffDate(moment().format('YYYY-MM-DD HH:mm:ss'), '2021-03-03 14:25:26');
+diffDate('2021-04-01', '2021-05-03');
