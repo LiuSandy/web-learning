@@ -1,6 +1,7 @@
 import React from 'react'
-import { Route, Router, Switch } from 'react-router'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { Router, Route } from './source/index'
+// import { Route, Router, Switch } from 'react-router'
+// import { Link } from 'react-router-dom'
 // import { createBrowserHistory } from 'history'
 import { Home, User } from './pages'
 
@@ -9,20 +10,14 @@ import { Home, User } from './pages'
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Link to="/" >Home</Link>
-        &nbsp;&nbsp;&nbsp;
-        <Link to="/user" >User</Link>
-
-        <Switch>
-          <Route exact path="/" component={Home}>
-            <User />
-          </Route>
-          <Route exact path="/user" component={User} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <Router>
+      <div>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/user" component={User} />
+      </div>
+    </Router>
   );
 }
 
