@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垂直居中的方法</title>
+  <style>
+    .wrapper {
+      width: 500px;
+      height: 500px;
+      background-color: teal
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: turquoise
+    }
+
+    /* 1. margin auto + position: absolute */
+    /* .wrapper {
+      position: relative;
+    }
+
+    .box {
+      position: absolute;
+      margin: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    } */
+
+    /* 2. display: flex */
+    /* .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+
+    .wrapper {
+      position: relative;
+    }
+
+    .box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%)
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="box">
+      2.
+    </div>
+  </div>
+
+</body>
+
+</html>
