@@ -1,5 +1,6 @@
 import React from 'react';
-import './index.css'
+import classNames from 'classnames';
+import styles from './index.less'
 
 /**
  * shape 数据结构 
@@ -234,12 +235,12 @@ class Index extends React.Component {
     }
 
     return (
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <div className="tool">
           <button onClick={this.changeEditable}>{editable ? '取消编辑' : '编辑'}</button>
         </div>
         <div
-          className='canvas'
+          className={styles.canvas}
           style={canvasStyle}
           ref={ref => this.container = ref}
           onMouseDown={this.onMouseDown}
@@ -253,22 +254,23 @@ class Index extends React.Component {
               const style = this.getStyle(shape.style)
               return (
                 <div
-                  className={`rectangle ${shape.status}`}
+                  // className={`rectangle ${shape.status}`}
+                  className={classNames(styles.rectangle, styles[shape.status])}
                   onMouseDown={this.onRectMove}
                   key={key}
                   data-id={key}
                   data-status={shape.status}
                   style={style}
                 >
-                  <div className="rectElement">
-                    <div className="bar north" data-ord="north"></div>
-                    <div className="bar south" data-ord="south"></div>
-                    <div className="bar east" data-ord="east"></div>
-                    <div className="bar west" data-ord="west"></div>
-                    <div className="corner" data-ord="northeast"></div>
-                    <div className="corner" data-ord="nnorthwest"></div>
-                    <div className="corner" data-ord="southeast"></div>
-                    <div className="corner" data-ord="southwest"></div>
+                  <div className={styles.rectElement}>
+                    <div className={classNames(styles.bar, styles.north)} data-ord="north"></div>
+                    <div className={classNames(styles.bar, styles.south)} data-ord="south"></div>
+                    <div className={classNames(styles.bar, styles.east)} data-ord="east"></div>
+                    <div className={classNames(styles.bar, styles.west)} data-ord="west"></div>
+                    <div className={classNames(styles.corner, styles.northeast)} data-ord="northeast"></div>
+                    <div className={classNames(styles.corner, styles.northwest)} data-ord="northwest"></div>
+                    <div className={classNames(styles.corner, styles.southeast)} data-ord="southeast"></div>
+                    <div className={classNames(styles.corner, styles.southwest)} data-ord="southwest"></div>
                   </div>
                 </div>
               )
