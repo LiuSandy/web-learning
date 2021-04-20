@@ -3,7 +3,7 @@
  * 1. 使用全局的history
  * 2. 设置 location 监听变化
  */
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import RouteContext from './routeContext'
 
 const globalHistory = window.history
@@ -14,11 +14,14 @@ class Router extends React.Component {
       location: window.location
     }
     window.addEventListener("popstate", () => {
-      this.push()
+      this.setState({
+        location: window.location
+      })
     })
   }
 
-  push = () => {
+  push = (route) => {
+    globalHistory.pushState({}, "", route)
     this.setState({
       location: window.location
     })

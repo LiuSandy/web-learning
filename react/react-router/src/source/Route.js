@@ -7,7 +7,6 @@ import { pathToRegexp } from "path-to-regexp";
 
 const Route = (props) => {
   const context = useContext(RouteContext)
-  console.log("context", context)
   const computedPath = (path, exact) => {
     const pathname = context.location.pathname;
     const keys = [];

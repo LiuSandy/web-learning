@@ -3,8 +3,8 @@ import React from 'react'
 /* eslint import/no-anonymous-default-export: off */
 export default (props) => {
   const onClick = () => {
-    props.history.pushState({}, "", "/user")
-    props.push()
+    
+    props.push("/user")
   }
   return (
     <div>
