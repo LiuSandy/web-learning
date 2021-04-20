@@ -1,0 +1,96 @@
+.wrapper {
+  width: 1000px;
+  height: 550px;
+  margin: 50px auto;
+}
+
+.canvas {
+  width: 1000px;
+  height: 500px;
+  margin: auto;
+  position: relative;
+  background-color: rgb(232, 229, 229);
+}
+
+.rectangle {
+  background-color: transparent;
+  position: absolute;
+}
+
+.init {
+  border: 2px dashed #D0021B;
+  cursor: move;
+}
+
+.focused {
+  border: 2px solid #BFBFBF;
+  cursor: move;
+}
+
+.focused>.dragElement>.bar {
+  position: absolute;
+}
+
+.focused>.dragElement>.corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  border: 1px solid #BFBFBF;
+}
+
+.focused>.dragElement>.east {
+  cursor: e-resize;
+  top: 0;
+  right: -3px;
+  width: 6px;
+  height: 100%;
+}
+
+.focused>.dragElement>.west {
+  cursor: w-resize;
+  top: 0;
+  left: -3px;
+  width: 6px;
+  height: 100%;
+}
+
+.focused>.dragElement>.south {
+  cursor: s-resize;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+}
+
+.focused>.dragElement>.north {
+  cursor: n-resize;
+  top: -3px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+}
+
+.focused>.dragElement>.southeast {
+  cursor: se-resize;
+  bottom: -4px;
+  right: -4px;
+}
+
+.focused>.dragElement>.southwest {
+  cursor: sw-resize;
+  bottom: -4px;
+  left: -4px;
+}
+
+.focused>.dragElement>.northeast {
+  cursor: ne-resize;
+  top: -4px;
+  right: -4px;
+}
+
+.focused>.dragElement>.northwest {
+  cursor: nw-resize;
+  top: -4px;
+  left: -4px;
+}
