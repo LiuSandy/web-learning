@@ -16,6 +16,7 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/user" component={User} />
+        <Route exact path="/user/:id/:age" component={User} />
       </div>
     </Router>
   );
