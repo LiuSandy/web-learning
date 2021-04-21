@@ -1,8 +1,8 @@
 import React from 'react'
-import Other from './pages/other'
+import Document from './pages/document'
 
 const Index = props => {
-  return <Other />
+  return <Document name="lius" />
 }
 
 export default Index;
