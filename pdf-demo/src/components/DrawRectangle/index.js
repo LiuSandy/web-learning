@@ -13,8 +13,9 @@ import styles from './index.less'
  * }
  */
 
-const PREFIX = 'CUR-RECTANGE-'
-let CURRENT_INDEX = 0
+const PREFIX = 'CUR-RECTANGE-';
+let CURRENT_INDEX = 0;
+const minimum = { with: 20, height: 10 }
 
 class Index extends React.Component {
   constructor(props) {
@@ -28,12 +29,62 @@ class Index extends React.Component {
     this.curDropShape = ""; /* 当前移动的shape */
   }
 
+  componentDidMount() {
+    const { linkedList } = this.props
+    if (linkedList) {
+      // todo 设置缩放
+      this.setState({ shapes: linkedList })
+    }
+  }
+
   changeEditable = () => {
     const { editable } = this.state
+    this.removeNotConfirmRect()
     this.setState({
       editable: !editable
     })
     this.canDrawMove = false;
+  }
+
+  /**
+   * 移除没有绘制确认的矩形
+   */
+  removeNotConfirmRect = () => {
+    const { shapes } = this.state
+    Object.keys(shapes).forEach(key => {
+      if (key.startsWith(PREFIX)) {
+        delete shapes[key]
+      }
+    })
+    this.setState({ shapes })
+  }
+
+  /**
+   * 绘制确认
+   */
+  onConfirm = () => {
+    const { onInsert } = this.props
+    const { shapes } = this.state
+    const onSave = (key) => {
+      const willSaveShape = shapes[key]
+      onInsert(willSaveShape, (savedShapes) => {
+        this.setState({
+          shapes: savedShapes
+        })
+        this.canDrawMove = false;
+        this.curDropOrientation = '';
+        this.curDropShape = ""
+      })
+    }
+    if (!this.curDropShape) {
+      Object.keys(shapes).forEach(key => {
+        if (shapes[key].status === 'unfocused') {
+          onSave(key)
+        }
+      })
+    } else {
+      onSave(this.curDropShape)
+    }
   }
 
   getStyle = (style) => {
@@ -151,6 +202,7 @@ class Index extends React.Component {
     if (!editable) {
       return
     }
+    this.unFocusedAll();
     const key = `${PREFIX}${CURRENT_INDEX}`
     const { nativeEvent: { offsetX, offsetY } } = event
     const curShape = {
@@ -198,9 +250,6 @@ class Index extends React.Component {
       // 3. 判断移动 改变位置
       this.moveRectangle(movementX, movementY)
     }
-
-
-    console.log("onMouseMove", this.curDropOrientation)
   }
 
   /**
@@ -215,21 +264,73 @@ class Index extends React.Component {
     }
     // 1. 绘制结束聚焦到当前矩形
     const { shapes } = this.state;
-    shapes[this.curDropShape].status = 'focused'
-    this.setState({ shapes })
+    const curShape = shapes[this.curDropShape]
+    if (curShape) {
+      const { width, height } = curShape.style
+      // 判断是否最小
+      if (width <= minimum.width || height <= minimum.height) {
+        delete shapes[this.curDropShape]
+        this.unFocusedAll()
+      } else {
+        shapes[this.curDropShape].status = 'focused'
+        this.canDrawMove = false
+        this.curDropOrientation = "";
+      }
+      this.setState({ shapes })
+    } else {
+      this.unFocusedAll()
+    }
+  }
+
+  unFocusedAll = () => {
+    const { shapes } = this.state
+    Object.keys(shapes).forEach(key => {
+      if (key.startsWith(PREFIX) && shapes[key].status === 'focused') {
+        shapes[key].status = 'unfocused'
+      } else if (!key.startsWith(PREFIX) && shapes[key].status === 'focused') {
+        shapes[key].status = 'done'
+      }
+    })
     this.canDrawMove = false
-    this.curDropOrientation = ""
+    this.curDropOrientation = "";
     this.curDropShape = ""
-    console.log("onMouseUp")
+    this.setState({ shapes })
   }
 
   onRectMove = event => {
+    event.stopPropagation();
+    const { editable, shapes } = this.state
+    if (!editable) {
+      return
+    }
+    const { target } = event
+    const key = target.getAttribute("data-id")
+    if (shapes[key]) {
+      // 设置点击对象 只能选中一个
+      this.unFocusedAll()
+      shapes[key].status = 'focused';
+      this.setState({ shapes })
+      this.curDropShape = key
+    }
+  }
+
+  onClose = (event) => {
     event.stopPropagation()
+    const { editable, shapes } = this.state
+    if (!editable) {
+      return
+    }
+    const { target } = event
+    const key = target.getAttribute("data-id")
+    if (shapes[key]) {
+      delete shapes[key]
+      this.setState({ shapes })
+      this.curDropShape = ""
+    }
   }
 
   render() {
     const { editable, shapes } = this.state
-    console.log(shapes)
     const canvasStyle = {
       cursor: editable ? 'crosshair' : 'default'
     }
@@ -238,6 +339,7 @@ class Index extends React.Component {
       <div className={styles.wrapper}>
         <div className="tool">
           <button onClick={this.changeEditable}>{editable ? '取消编辑' : '编辑'}</button>
+          <button onClick={this.onConfirm}>确定</button>
         </div>
         <div
           className={styles.canvas}
@@ -271,6 +373,7 @@ class Index extends React.Component {
                     <div className={classNames(styles.corner, styles.northwest)} data-ord="northwest"></div>
                     <div className={classNames(styles.corner, styles.southeast)} data-ord="southeast"></div>
                     <div className={classNames(styles.corner, styles.southwest)} data-ord="southwest"></div>
+                    <div data-id={key} className={styles.close} onClick={this.onClose}></div>
                   </div>
                 </div>
               )
