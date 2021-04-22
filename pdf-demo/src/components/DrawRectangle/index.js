@@ -189,7 +189,19 @@ class Index extends React.Component {
    * 移动矩形位置
    */
   moveRectangle = (x, y) => {
-
+    if (!this.canDrawMove || !this.curDropShape) {
+      return
+    }
+    const { shapes } = this.state
+    const shape = shapes[this.curDropShape]
+    if (shape && (x || y)) {
+      shape.style = {
+        ...shape.style,
+        x: shape.style.x + x,
+        y: shape.style.y + y
+      }
+      this.setState({ shapes })
+    }
   }
 
 
@@ -267,13 +279,16 @@ class Index extends React.Component {
     const curShape = shapes[this.curDropShape]
     if (curShape) {
       const { width, height } = curShape.style
-      // 判断是否最小
-      if (width <= minimum.width || height <= minimum.height) {
+      if (!this.curDropShape.startsWith(PREFIX)&&curShape.status === 'focused') {
+        this.unFocusedAll()
+        // 移动 修改
+      } else if (width <= minimum.width || height <= minimum.height) {
+        // 判断是否最小
         delete shapes[this.curDropShape]
         this.unFocusedAll()
       } else {
         shapes[this.curDropShape].status = 'focused'
-        this.canDrawMove = false
+        this.canDrawMove = true
         this.curDropOrientation = "";
       }
       this.setState({ shapes })
@@ -298,18 +313,17 @@ class Index extends React.Component {
   }
 
   onRectMove = event => {
-    event.stopPropagation();
+    event.stopPropagation()
     const { editable, shapes } = this.state
     if (!editable) {
       return
     }
     const { target } = event
     const key = target.getAttribute("data-id")
-    if (shapes[key]) {
+    this.curDropOrientation = target.getAttribute("data-ord")
+    if (shapes[key] && shapes[key].status !== 'focused') {
       // 设置点击对象 只能选中一个
       this.unFocusedAll()
-      shapes[key].status = 'focused';
-      this.setState({ shapes })
       this.curDropShape = key
     }
   }
@@ -321,7 +335,8 @@ class Index extends React.Component {
       return
     }
     const { target } = event
-    const key = target.getAttribute("data-id")
+    const key = target.getAttribute("data-id");
+
     if (shapes[key]) {
       delete shapes[key]
       this.setState({ shapes })

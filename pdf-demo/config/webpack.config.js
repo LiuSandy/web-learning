@@ -337,10 +337,7 @@ module.exports = function (webpackEnv) {
                 cache: true,
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
-                resolvePluginsRelativeTo: __dirname,
-                plugins :[
-                  "@babel/plugin-proposal-class-properties",
-                ]
+                resolvePluginsRelativeTo: __dirname
 
               },
               loader: require.resolve('eslint-loader'),
@@ -376,7 +373,6 @@ module.exports = function (webpackEnv) {
                 ),
 
                 plugins: [
-                  "@babel/plugin-proposal-class-properties",
                   [
                     require.resolve('babel-plugin-named-asset-import'),
                     {

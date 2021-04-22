@@ -98,26 +98,27 @@
     .unfocused {
       border: 2px solid #D0021B;
       cursor: pointer;
-
-      .close {
-        cursor: pointer;
-        background-color: #D0021B;
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        right: -18px;
-        top: -2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-
-        &::after {
-          content: 'x';
-          font-size: 11px;
-          color: #ffffff;
+      .rectElement{
+        .close {
+          cursor: pointer;
+          background-color: #D0021B;
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          right: -18px;
+          top: -2px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+  
+          &::after {
+            content: 'x';
+            font-size: 11px;
+            color: #ffffff;
+          }
         }
       }
+      
     }
 
     .done {
