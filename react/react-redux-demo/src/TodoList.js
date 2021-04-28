@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import { Input, Button, List } from "antd";
+import DragResizeDialog from 'react-drag-resize-dialog'
+import 'react-drag-resize-dialog/lib/min.min.css'
 import { connect } from 'react-redux'
 
 class TodoList extends Component {
+
+  state = {
+    visible: false
+  }
 
   clickBtn = () => {
     this.props.addTodo(this.props.inputValue)
@@ -29,6 +35,11 @@ class TodoList extends Component {
             renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => { }}>删除</Button>}>{item}</List.Item>}
           />
         </div>
+        <DragResizeDialog
+          visible={this.state.visible}
+          onCancel={() => { this.setState({ visible: false }) }}
+        />
+        <button onClick={() => { this.setState({ visible: true }) }}>点击</button>
       </div>
     )
   }
@@ -38,18 +49,18 @@ const mapstateToProps = state => ({
   ...state
 })
 
-const mapDispatchToProps=(dispatch)=>({
-  inputChange:e=>{
+const mapDispatchToProps = (dispatch) => ({
+  inputChange: e => {
     const action = {
-      type:'input_change',
-      value:e.target.value
+      type: 'input_change',
+      value: e.target.value
     }
     dispatch(action)
   },
-  addTodo:v=>{
+  addTodo: v => {
     dispatch({
-      type:'add',
-      value:v
+      type: 'add',
+      value: v
     })
   }
 })
