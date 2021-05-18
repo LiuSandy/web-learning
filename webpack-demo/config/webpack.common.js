@@ -3,18 +3,22 @@ const fs = require('fs');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const { FileListPlugin } = require('../plugins/index')
 const webpack = require('webpack');
 
 const getPlugins = configs => {
   const plugins = [
     new CleanWebpackPlugin(),
+    new FileListPlugin({
+      outputFile: 'my-assets.md',
+    }),
   ]
   Object.keys(configs.entry).forEach(item => {
     plugins.push(
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, '../index.html'),
         filename: `${item}.html`,
-        chunks: ['runtime','vendors', item]
+        chunks: ['runtime', 'vendors', item]
       }),
     )
   })
