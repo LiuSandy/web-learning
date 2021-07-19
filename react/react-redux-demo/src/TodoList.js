@@ -4,6 +4,12 @@ import DragResizeDialog from 'react-drag-resize-dialog'
 import 'react-drag-resize-dialog/lib/min.min.css'
 import { connect } from 'react-redux'
 
+const boxStyle = {
+  width: 500,
+  margin: '10px auto',
+  boxShadow: '10px 5px 5px #bfb7b7,-10px 5px 5px #bfb7b7',
+  padding: 10
+}
 class TodoList extends Component {
 
   state = {
@@ -16,7 +22,8 @@ class TodoList extends Component {
 
   render() {
     return (
-      <div>
+      <div style={boxStyle}>
+        <h2>Redux</h2>
         <div>
           <Input
             onChange={this.props.inputChange}
@@ -32,14 +39,9 @@ class TodoList extends Component {
           <List
             bordered
             dataSource={this.props.list}
-            renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => { }}>删除</Button>}>{item}</List.Item>}
+            renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => {this.props.delTodo(index) }}>删除</Button>}>{item}</List.Item>}
           />
         </div>
-        <DragResizeDialog
-          visible={this.state.visible}
-          onCancel={() => { this.setState({ visible: false }) }}
-        />
-        <button onClick={() => { this.setState({ visible: true }) }}>点击</button>
       </div>
     )
   }
@@ -61,6 +63,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({
       type: 'add',
       value: v
+    })
+  },
+  delTodo: index => {
+    dispatch({
+      type: 'delete',
+      value: index
     })
   }
 })
