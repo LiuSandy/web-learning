@@ -44,6 +44,7 @@
     "mini-css-extract-plugin": "0.11.3",
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
+    "mobx-react-lite": "^3.2.0",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.2.1",

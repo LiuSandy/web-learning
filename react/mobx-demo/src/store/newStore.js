@@ -12,7 +12,7 @@ class newStore {
     this.inputValue = value
   }
   handleAddTodos(todo) {
-    this.list.push(todo)
+    this.list = [...this.list, todo]
   }
   handleDeleteTodos(index) {
     this.list.splice(index, 1)

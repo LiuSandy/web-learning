@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Button, List } from "antd";
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 const boxStyle = {
   width: 500,
@@ -9,62 +9,52 @@ const boxStyle = {
   padding: 10
 }
 
-@observer
-class TodoList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
 
-  changeInputValue = (e) => {
-    const { store } = this.props
+export default observer(({ store }) => {
+  const changeInputValue = (e) => {
     store.handleInputChange(e.target.value)
-    this.forceUpdate()
 
   };
 
-  clickBtn = () => {
-    const { store } = this.props
+  const clickBtn = () => {
     // store.inputValue
     store.handleAddTodos("新增一条")
-    this.forceUpdate()
+    // this.forceUpdate()
   }
 
-  deleteItem = index => {
-    const { store } = this.props
+  const deleteItem = index => {
     store.handleDeleteTodos(index)
-    this.forceUpdate()
   }
 
-  render() {
-    let { store } = this.props
-    console.log(store)
-    return (
-      <div style={boxStyle}>
-        <h2>Mobx</h2>
-        <div>
-          <Input
-            value={store.inputValue}
-            style={{ width: 250, marginRight: 10 }}
-            onChange={this.changeInputValue}
-          />
-          <Button
-            type="primary"
-            onClick={this.clickBtn}
-          >
-            增加
-          </Button>
-        </div>
-        <div style={{ margin: 10, width: 300 }}>
-          <List
-            bordered
-            dataSource={store.list}
-            renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => {this.deleteItem(index) }}>删除</Button>}>{item}</List.Item>}
-          />
-        </div>
+  console.log('---', store.list)
+
+  return (
+    <div style={boxStyle}>
+      <h2>Mobx</h2>
+      <div>
+        <Input
+          value={store.inputValue}
+          style={{ width: 250, marginRight: 10 }}
+          onChange={changeInputValue}
+        />
+        <Button
+          type="primary"
+          onClick={clickBtn}
+        >
+          增加
+        </Button>
       </div>
-    );
-  }
-}
+      <div style={{ margin: 10, width: 300 }}>
+        <List
+          bordered
+          dataSource={store.list}
+          renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => { deleteItem(index) }}>删除</Button>}>{item}</List.Item>}
+        />
 
-export default TodoList;
+      </div>
+      {/* {
+        store.list.map((item, index) => (<p key={index}>{item}</p>))
+      } */}
+    </div>
+  );
+})

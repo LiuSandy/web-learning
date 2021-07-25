@@ -5,6 +5,7 @@ import { observer, Provider } from "mobx-react"
 import TodoList from './TodoList'
 import Demo from './demo'
 import store from './store/newStore'
+// import store from './store'
 import 'antd/dist/antd.css'
 
 // Model the application state.
