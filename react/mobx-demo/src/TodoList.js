@@ -1,6 +1,7 @@
-import React from "react";
-import { Input, Button, List } from "antd";
+import React, { forceUpdate } from "react";
+import { Input, Button, List, Spin } from "antd";
 import { observer } from 'mobx-react-lite'
+import { toJS } from "mobx";
 
 const boxStyle = {
   width: 500,
@@ -13,7 +14,7 @@ const boxStyle = {
 export default observer(({ store }) => {
   const changeInputValue = (e) => {
     store.handleInputChange(e.target.value)
-
+    // forceUpdate()
   };
 
   const clickBtn = () => {
@@ -26,7 +27,7 @@ export default observer(({ store }) => {
     store.handleDeleteTodos(index)
   }
 
-  console.log('---', store.list)
+  console.log('---', toJS(store.storeLoading))
 
   return (
     <div style={boxStyle}>
@@ -47,6 +48,7 @@ export default observer(({ store }) => {
       <div style={{ margin: 10, width: 300 }}>
         <List
           bordered
+          loading={store.storeLoading.get('handleInputChange')}
           dataSource={store.list}
           renderItem={(item, index) => <List.Item extra={<Button type='primary' onClick={() => { deleteItem(index) }}>删除</Button>}>{item}</List.Item>}
         />
