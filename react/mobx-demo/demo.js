@@ -1,47 +1,32 @@
-const { makeObservable, autorun, observable, computed, action } = require('mobx')
-class ObservableTodoStore {
-  todos = [];
-  pendingRequests = 0;
+const numeral = require('numeral');
 
-  constructor() {
-    makeObservable(this, {
-      todos: observable,
-      pendingRequests: observable,
-      completedTodosCount: computed,
-      report: computed,
-      addTodo: action,
-    });
-    autorun(() => console.log(this.report));
-  }
+const divideNum = num => !num ? 0 : numeral(num).divide(100)
 
-  get completedTodosCount() {
-    return this.todos.filter(
-      todo => todo.completed === true
-    ).length;
-  }
-
-  get report() {
-    if (this.todos.length === 0)
-      return "<none>";
-    const nextTodo = this.todos.find(todo => todo.completed === false);
-    return `Next todo: "${nextTodo ? nextTodo.task : "<none>"}". ` +
-      `Progress: ${this.completedTodosCount}/${this.todos.length}`;
-  }
-
-  addTodo(task) {
-    this.todos.push({
-      task: task,
-      completed: false,
-      assignee: null
-    });
-  }
+const customToFixed = (num, scale = 2) => {
+  const dec = scale > 0 ? `0.${'0' * scale}` : '0'
+  return num.format(dec)
 }
 
-const observableTodoStore = new ObservableTodoStore();
+function formatNum(num) {
 
-observableTodoStore.addTodo("read MobX tutorial");
-observableTodoStore.addTodo("try MobX");
-observableTodoStore.todos[0].completed = true;
-observableTodoStore.todos[1].task = "try MobX in own project";
-observableTodoStore.todos[0].task = "grok MobX tutorial";
-observableTodoStore.addTodo("try MobX1");
+  return numeral(num).divide(100).format('0,000.00')
+}
+// const r = formatNum(divideNum(123))
+// console.log(r)
+// const r = parseInt(fun(123).toFixed('0'), 10)
+// console.log(numeral(123).divide(100).value().format('0.00'))
+// console.log(Array(0).fill(0).join(''))
+function toCent(value) {
+  // 解决浮点数计算bug
+  return numeral(value).multiply(100).value()
+}
+
+function toYuan(value, precision = 2) {
+
+  value = parseFloat(value);
+  return parseFloat((value / 100).toFixed(precision));
+}
+const a = 8
+const list = [1, 2, 3, a > 10 ? 4 : 0]
+
+console.log(list)
