@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppContextComponent from './AppContext'
-import App from './App'
-import { app, AppContext } from './store/app'
+// import AppContextComponent from './AppContext'
+// import App from './App'
+import Person from './Person'
+import PersonStore from './store/person'
 import 'antd/dist/antd.css'
 
 
@@ -11,10 +12,11 @@ import 'antd/dist/antd.css'
 //   document.getElementById('root')
 // );
 
+// const michel = new PersonStore();
+
+setTimeout(() => PersonStore.nickName = "new Name", 5000)
 
 ReactDOM.render(
-  <AppContext.Provider value={app}>
-    <AppContextComponent />
-  </AppContext.Provider>,
+  <Person person={PersonStore} />,
   document.getElementById('root')
 );
