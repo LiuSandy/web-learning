@@ -2660,6 +2660,13 @@ axe-core@^4.0.2:
   resolved "http://npm.dui88.com:80/axe-core/-/axe-core-4.3.1.tgz#0c6a076e4a1c3e0544ba6a9479158f9be7a7928e"
   integrity sha1-DGoHbkocPgVEumqUeRWPm+enko4=
 
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "http://npm.dui88.com:80/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha1-IlY0gZYvTWvemnbVFu8OXTwJsrg=
+  dependencies:
+    follow-redirects "^1.10.0"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "http://npm.dui88.com:80/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
@@ -5478,6 +5485,11 @@ follow-redirects@^1.0.0:
   version "1.14.1"
   resolved "http://npm.dui88.com:80/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
   integrity sha1-2RFN7Qoc/dM04WTmZirQK/2R/0M=
+
+follow-redirects@^1.10.0:
+  version "1.14.2"
+  resolved "http://npm.dui88.com:80/follow-redirects/-/follow-redirects-1.14.2.tgz#cecb825047c00f5e66b142f90fed4f515dec789b"
+  integrity sha1-zsuCUEfAD15msUL5D+1PUV3seJs=
 
 for-in@^1.0.2:
   version "1.0.2"

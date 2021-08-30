@@ -1,7 +1,9 @@
-const { stringify } = require('query-string')
+const axios = require('axios')
 
-const obj = { a: undefined, b: null, c: 12 }
-const result = stringify(obj, { skipNull: false, skipEmptyString: false })
-
-
-console.log(result)
+axios.get('https://liushuang-d0f5a4.postdemo.tcn.asia/api/v2/users/me',{
+  headers:{
+    authsessiontoken:'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzAyMzMxNDEsInBfdHlwZSI6InBvc3QtZGVtby1iZS1hdXRoIiwiaWQiOiI3YjEwYTIyOC1jN2Q3LTQ4YzMtYWM5Ny02Yjk5MzZiNGZiYWEiLCJlbWFpbCI6ImVhc29uQHRpYW5jYWkucHJvIiwicm5kbnVtIjo4NTcyNCwiaWF0IjoxNjMwMjExNTQxfQ.G3jyYPP-sU55yvmr03FdksqCykEG9z_COyYomxvp2Up2Xc2SzhsJirDCeToccfgcRshY8zHopg4o9DvWQkfPK35EO0jkbmNE1ZVUTX6Q9PoXrcYDzF8F5kqzUVJL3fSPxnQBR0y2QJfzYirx-TaNcaoE31zMhi1nq7ZbpBIvn9X-EpN5WyI2qd_nbh3AX4W_JReqta8dGcjwybxxupaDlDFVlx6zRDNaLBglxoKt-u6-VWzMYTCCDAfME68pG7cdmOFF9MyrLoQJTBrxw5UgOSK8ruUj1QFM1J6wTia5DuNA5GTl8OLBnhhZ56IgFV3c-fIIMivtr7z0CoR_DsFgpg'
+  }
+}).then(res=>{
+  console.log(res)
+})
