@@ -16,9 +16,10 @@ import {
 interface IProps<T> {
   columns: ProColumns<T>[];
   formItemMap: IFormItemsType[];
+  onSubmit: (p: T) => Promise<any>
 }
 function Index<T>(props: IProps<T>) {
-  const { columns, formItemMap } = props;
+  const { columns, formItemMap,onSubmit } = props;
 
   const filterColumn = useCallback(
     (key) => {
@@ -31,8 +32,8 @@ function Index<T>(props: IProps<T>) {
   return (
     <ProForm
       name="welcome"
-      onFinish={async (v) => {
-        console.log(v);
+      onFinish={async (v: T) => {
+        onSubmit(v);
       }}
     >
       {formItemMap.map((item, index) => {

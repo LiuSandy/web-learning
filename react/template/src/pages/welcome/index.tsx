@@ -200,13 +200,14 @@ const Index: React.FC<{}> = () => {
   };
 
   const onCreate = async (params: Omit<ColumnsType, 'id'>) => {
-    const success = await handleAdd({ ...params, pattern: Number(params.pattern) });
-    if (success) {
-      setCreateModalVisible(false);
-      if (actionRef.current) {
-        actionRef.current.reload();
-      }
-    }
+      console.log("--->",params)
+    // const success = await handleAdd({ ...params, pattern: Number(params.pattern) });
+    // if (success) {
+    //   setCreateModalVisible(false);
+    //   if (actionRef.current) {
+    //     actionRef.current.reload();
+    //   }
+    // }
   };
 
   const handleEdit = async (fields: ColumnsType) => {
@@ -311,7 +312,7 @@ const Index: React.FC<{}> = () => {
         footer={null}
         width={960}
       >
-        <EnhanceForm<ColumnsType> columns={columns} formItemMap={formItemMap} />
+        <EnhanceForm<ColumnsType> columns={columns} formItemMap={formItemMap} onSubmit={onCreate} />
       </Modal>
 
       {/* 编辑 Modal */}
