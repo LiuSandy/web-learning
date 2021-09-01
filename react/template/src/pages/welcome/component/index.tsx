@@ -15,10 +15,6 @@ interface IProps<T> {
 function Index<T>(props: IProps<T>) {
   const { columns, formItemMap } = props;
 
-  const onValuesChange = (_, values) => {
-    console.log(values);
-  };
-
   const filterColumn = useCallback(
     (key) => {
       // 过滤掉 操作栏
@@ -30,7 +26,6 @@ function Index<T>(props: IProps<T>) {
   return (
     <ProForm
       name="welcome"
-      onValuesChange={onValuesChange}
       onFinish={async (v) => {
         console.log(v);
       }}
