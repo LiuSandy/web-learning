@@ -199,6 +199,7 @@ const Index: React.FC<{}> = () => {
     }
   };
 
+  // 新增
   const onCreate = async (params: Omit<ColumnsType, 'id'>) => {
     const success = await handleAdd({ ...params, pattern: Number(params.pattern) });
     if (success) {
