@@ -6,9 +6,9 @@ import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { LOGIN_ROUTE, NOT_AUTHENTICATION_ROUTES } from './constants';
 
 const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -28,12 +28,15 @@ export async function getInitialState(): Promise<{
       const msg = await queryCurrentUser();
       return msg.data;
     } catch (error) {
-      history.push(loginPath);
+      history.push(LOGIN_ROUTE);
     }
     return undefined;
   };
   // 如果是登录页面，不执行
-  if (history.location.pathname !== loginPath) {
+  if (
+    NOT_AUTHENTICATION_ROUTES.length>0 &&
+    !NOT_AUTHENTICATION_ROUTES.includes(history.location.pathname)
+  ) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -59,8 +62,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
+      if (
+        NOT_AUTHENTICATION_ROUTES.length > 0 &&
+        !initialState?.currentUser &&
+        !NOT_AUTHENTICATION_ROUTES.includes(location.pathname)
+      ) {
+        history.push(LOGIN_ROUTE);
       }
     },
     links: isDev
