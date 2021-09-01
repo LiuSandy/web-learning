@@ -1,12 +1,17 @@
 import { useCallback } from 'react';
 import { Divider } from 'antd';
-import ProForm, {
-  ProFormGroup,
-} from '@ant-design/pro-form';
+import ProForm, { ProFormGroup } from '@ant-design/pro-form';
 import type { ProColumns } from '@ant-design/pro-table';
 import type { IFormItemsType } from '@/interface';
 
-import {renderCheckbox,renderInput,renderPassword,renderRadio,renderSelect,renderSwitch} from './itemRender'
+import {
+  renderCheckbox,
+  renderInput,
+  renderPassword,
+  renderRadio,
+  renderSelect,
+  renderSwitch,
+} from './itemRender';
 
 interface IProps<T> {
   columns: ProColumns<T>[];
@@ -42,21 +47,21 @@ function Index<T>(props: IProps<T>) {
               // children[key] 中保存着 formItem 的 props
               const formItemProps = children[key];
               if (valueType === 'password') {
-                return renderPassword(column,formItemProps)
+                return renderPassword(column, formItemProps);
               }
               if (valueType === 'select') {
-                return renderSelect(column,formItemProps)
+                return renderSelect(column, formItemProps);
               }
               if (valueType === 'radio') {
-                return renderRadio(column,formItemProps)
+                return renderRadio(column, formItemProps);
               }
               if (valueType === 'checkbox') {
-                return renderCheckbox(column,formItemProps)
+                return renderCheckbox(column, formItemProps);
               }
               if (valueType === 'switch') {
-                return renderSwitch(column,formItemProps)
+                return renderSwitch(column, formItemProps);
               }
-              return renderInput(column,formItemProps)
+              return renderInput(column, formItemProps);
             })}
           </ProFormGroup>
         );
