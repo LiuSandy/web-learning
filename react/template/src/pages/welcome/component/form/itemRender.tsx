@@ -9,17 +9,27 @@ import {
   ProFormDependency,
 } from '@ant-design/pro-form';
 import type { ProColumns } from '@ant-design/pro-table';
+import { Col } from 'antd';
 
-const defaultLayout: IFormItemsLayout = {
-  width: 'md',
-};
+const defaultLayout: IFormItemsLayout = {};
 
 export const renderInput = (
   column: ProColumns,
   formItemProps: FormItemProps & IFormItemsLayout & IFormItemDependency,
 ) => {
+  const { width } = formItemProps;
   const { dataIndex, title } = column;
-  return <ProFormText {...defaultLayout} name={dataIndex} label={title} {...formItemProps} />;
+  return (
+    <Col span={width}>
+      <ProFormText
+        labelAlign="right"
+        {...defaultLayout}
+        name={dataIndex}
+        label={title}
+        style={{ width: '100%' }}
+      />
+    </Col>
+  );
 };
 
 export const renderSelect = (

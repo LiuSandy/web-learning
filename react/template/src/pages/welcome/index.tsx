@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { Button, message, Modal, Space } from 'antd';
+import type { FormInstance } from 'antd';
+import { Button, Input, message, Modal, Space, Select, Radio, Checkbox, Switch } from 'antd';
 import { useIntl } from 'umi';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -9,8 +10,9 @@ import { PlusOutlined } from '@ant-design/icons';
 
 import { createItem, queryItems, removeItems, updateItem } from './service';
 import type { ColumnsType } from './data';
-import EnhanceForm from './component';
-import type { IFormItemsType } from '@/interface';
+import EnhanceForm from './component/enhanceForm';
+// import EnhanceForm from './component/form';
+import type { IExtColumn, IFormItemsType } from '@/interface';
 
 const dataTemp = [
   {
@@ -38,19 +40,56 @@ const Index: React.FC<{}> = () => {
     return <Space align="end">{dom}</Space>;
   }, []);
 
-  const columns: ProColumns<ColumnsType>[] = [
+  const columns: IExtColumn<ColumnsType>[] = [
     {
       title: 'Input',
       dataIndex: 'input',
       fixed: 'left',
       width: 100,
       search: false,
+      child: <Input />,
     },
+    {
+      title: 'In',
+      dataIndex: 'input1',
+      fixed: 'left',
+      width: 100,
+      search: false,
+      child: <Input />,
+    },
+    {
+      title: 'Input2-put1',
+      dataIndex: 'input2',
+      fixed: 'left',
+      width: 100,
+      search: false,
+      child: <Input />,
+    },
+    {
+      title: 'Input3',
+      dataIndex: 'input3',
+      fixed: 'left',
+      width: 100,
+      search: false,
+      child: <Input />,
+    },
+    {
+      title: 'Input4',
+      dataIndex: 'input4',
+      fixed: 'left',
+      width: 100,
+      search: false,
+      child: <Input />,
+    },
+
     {
       title: 'Password',
       dataIndex: 'password',
       valueType: 'password',
       width: 100,
+      child: () => {
+        return <Input.Password />;
+      },
     },
     {
       title: 'Select',
@@ -63,6 +102,23 @@ const Index: React.FC<{}> = () => {
         running: { text: '运行中', status: 'Processing' },
         online: { text: '已上线', status: 'Success' },
         error: { text: '异常', status: 'Error' },
+      },
+      child: ({ valueEnum }: ProColumns) => {
+        const options = Object.keys(valueEnum).map((k) => ({
+          value: k,
+          text: valueEnum?.[k].text,
+        }));
+        return (
+          <Select style={{ width: '100%' }}>
+            {options.map((i) => {
+              return (
+                <Select.Option key={i.value} value={i.value}>
+                  {i.text}
+                </Select.Option>
+              );
+            })}
+          </Select>
+        );
       },
     },
     {
@@ -77,6 +133,24 @@ const Index: React.FC<{}> = () => {
       },
       width: 150,
       search: false,
+      child: ({ valueEnum }: ProColumns, formRef: FormInstance) => {
+        const options = Object.keys(valueEnum).map((k) => ({
+          value: k,
+          text: valueEnum?.[k].text,
+        }));
+        const selectType = formRef.getFieldValue('select');
+        return (
+          <Radio.Group style={{ width: '100%' }} disabled={selectType === 'close'}>
+            {options.map((i) => {
+              return (
+                <Radio key={i.value} value={i.value}>
+                  {i.text}
+                </Radio>
+              );
+            })}
+          </Radio.Group>
+        );
+      },
     },
     {
       title: 'Checkbox',
@@ -90,6 +164,23 @@ const Index: React.FC<{}> = () => {
         C: { text: 'C-text' },
         D: { text: 'D-text' },
       },
+      child: ({ valueEnum }: ProColumns) => {
+        const options = Object.keys(valueEnum).map((k) => ({
+          value: k,
+          text: valueEnum?.[k].text,
+        }));
+        return (
+          <Checkbox.Group style={{ width: '100%' }}>
+            {options.map((i) => {
+              return (
+                <Checkbox key={i.value} value={i.value}>
+                  {i.text}
+                </Checkbox>
+              );
+            })}
+          </Checkbox.Group>
+        );
+      },
     },
     {
       title: 'Switch',
@@ -97,6 +188,7 @@ const Index: React.FC<{}> = () => {
       valueType: 'switch',
       width: 150,
       search: false,
+      child: <Switch />,
     },
     {
       title: '操作',
@@ -126,8 +218,23 @@ const Index: React.FC<{}> = () => {
       label: 'Text',
       children: {
         input: {
-          width: 'sm',
+          width: 8,
         },
+        input1: {
+          width: 16,
+          labelCol: { span: 4 },
+          wrapperCol: { span: 20 },
+        },
+        input2: {},
+        input3: {
+          rules: [
+            {
+              required: true,
+              message: 'xxx',
+            },
+          ],
+        },
+        input4: {},
         password: {
           rules: [
             {
@@ -143,6 +250,7 @@ const Index: React.FC<{}> = () => {
       children: {
         select: {},
         radio: {
+          width: 16,
           dependencies: ['select'],
           updateProps: (form, c) => {
             const v = form.getFieldValue('select');
@@ -153,6 +261,9 @@ const Index: React.FC<{}> = () => {
           },
         },
         checkbox: {
+          width: 16,
+          labelCol: { span: 4 },
+          wrapperCol: { span: 20 },
           dependencies: ['select'],
           updateProps: (form, c) => {
             const v = form.getFieldValue('select');
@@ -200,7 +311,7 @@ const Index: React.FC<{}> = () => {
   };
 
   const onCreate = async (params: Omit<ColumnsType, 'id'>) => {
-      console.log("--->",params)
+    console.log('--->', params);
     // const success = await handleAdd({ ...params, pattern: Number(params.pattern) });
     // if (success) {
     //   setCreateModalVisible(false);
@@ -310,7 +421,7 @@ const Index: React.FC<{}> = () => {
         visible={createModalVisible}
         onCancel={() => setCreateModalVisible(false)}
         footer={null}
-        width={960}
+        width={900}
       >
         <EnhanceForm<ColumnsType> columns={columns} formItemMap={formItemMap} onSubmit={onCreate} />
       </Modal>
