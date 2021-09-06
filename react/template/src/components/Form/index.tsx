@@ -1,4 +1,4 @@
-import type { IExtColumns, IFormItemsType } from '@/interface';
+import type { IExtColumns, IFormItemsType } from './interface';
 import { Col, Divider, Form, Row } from 'antd';
 import React, { useCallback } from 'react';
 import Item from './itemRender';
@@ -6,11 +6,12 @@ import Item from './itemRender';
 interface IProps<T> {
   columns: IExtColumns<T>[];
   formItemMap: IFormItemsType[];
+  initialValues: T;
   onSubmit: (p: T) => Promise<any>;
 }
 
 function Index<T>(props: IProps<T>) {
-  const { formItemMap, columns, onSubmit } = props;
+  const { formItemMap, columns, initialValues, onSubmit } = props;
   const [form] = Form.useForm();
 
   const filterColumn = useCallback(
@@ -26,6 +27,7 @@ function Index<T>(props: IProps<T>) {
       layout="horizontal"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
+      initialValues={initialValues}
       onFinish={async (v: T) => {
         onSubmit(v);
       }}

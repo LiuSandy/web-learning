@@ -10,9 +10,9 @@ import { PlusOutlined } from '@ant-design/icons';
 
 import { createItem, queryItems, removeItems, updateItem } from './service';
 import type { ColumnsType } from './data';
-import EnhanceForm from './component/enhanceForm';
+import EnhanceForm from '@/components/Form';
 // import EnhanceForm from './component/form';
-import type { IExtColumn, IFormItemsType } from '@/interface';
+import type { IExtColumns, IFormItemsType } from '@/components/Form/interface';
 
 const dataTemp = [
   {
@@ -40,7 +40,7 @@ const Index: React.FC<{}> = () => {
     return <Space align="end">{dom}</Space>;
   }, []);
 
-  const columns: IExtColumn<ColumnsType>[] = [
+  const columns: IExtColumns<ColumnsType>[] = [
     {
       title: 'Input',
       dataIndex: 'input',
