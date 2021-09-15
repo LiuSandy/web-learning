@@ -8,7 +8,7 @@ export interface IFormItemsLayout {
 // form 表单
 export interface IFormItemsType {
   label?: string | undefined;
-  children: Record<string, FormItemProps & IFormItemsLayout & IFormItemDependency>;
+  children?: Record<string, (FormItemProps & IFormItemsLayout & IFormItemDependency) | null>;
 }
 
 // 表单联动属性
@@ -20,6 +20,6 @@ export interface IFormItemDependency {
 }
 
 /* 对 column 类型扩展 */
-export type IExtColumns<T> = {
+export type IExtColumns<T = any> = {
   child?: JSX.Element | ((p: ProColumns, f: FormInstance) => JSX.Element) | null;
 } & ProColumns<T>;

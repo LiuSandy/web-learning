@@ -1,8 +1,8 @@
 import type { FormInstance } from 'antd';
 import { Form, Input } from 'antd';
 import type { ProColumns } from '@ant-design/pro-table';
-import type { IExtColumns, IFormItemDependency, IFormItemsLayout } from './interface';
 import type { FormItemProps } from '@ant-design/pro-form';
+import type { IExtColumns, IFormItemDependency, IFormItemsLayout } from './interface';
 
 type IFormItemProps = FormItemProps & IFormItemsLayout & IFormItemDependency;
 interface IProps {
