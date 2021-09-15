@@ -15,23 +15,29 @@
     }
   }
 }
-.tabWrapper {
+
+.hidePageContainer {
   :global {
-    .ant-pro-page-container-children-content {
-      position: relative;
-      right: 0;
-      bottom: 0;
+    .ant-pro-card-body {
+      padding-top: 0;
     }
-    .ant-pro-footer-bar {
-      height: 48px;
-    }
-  }
-  .tabsStyle {
-    :global {
-      .ant-tabs-nav{
+    .ant-pro-page-container-warp {
+      .ant-page-header {
         display: none;
       }
     }
   }
-  
+}
+
+
+.hideTabs {
+  :global {
+    .ant-tabs-nav {
+      display: none;
+    }
+  }
+}
+
+.footerStyle {
+  height: 48px;
 }

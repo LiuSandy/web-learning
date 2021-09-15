@@ -8,6 +8,7 @@ export interface IFormItemsLayout {
 // form 表单
 export interface IFormItemsType {
   label?: string | undefined;
+  key?: React.Key,
   children?: Record<string, (FormItemProps & IFormItemsLayout & IFormItemDependency) | null>;
 }
 

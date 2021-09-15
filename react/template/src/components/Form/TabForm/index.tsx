@@ -1,5 +1,6 @@
-import { Button, Col, Form, Row, Space, Spin, Tabs } from 'antd';
+import { Button, Col, Form, Row, Space, Tabs } from 'antd';
 import { useCallback, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import { useIntl } from 'umi';
 import Item from '../itemRender';
 import type { IExtColumns, IFormItemsType } from '../interface';
@@ -17,6 +18,9 @@ interface IProps<T> {
   actions?: JSX.Element | JSX.Element[] | null;
   refresh?: (P?: any) => void;
   loading?: boolean;
+  hidePageContainer?: boolean;
+  className?: string;
+  tabClassName?: string;
 }
 
 function Index<T>(props: IProps<T>) {
@@ -26,6 +30,9 @@ function Index<T>(props: IProps<T>) {
     initialValues,
     actions,
     loading = false,
+    hidePageContainer = false,
+    className,
+    tabClassName,
     refresh,
     onSubmit,
   } = props;
@@ -45,18 +52,45 @@ function Index<T>(props: IProps<T>) {
   const tabList = useMemo(() => {
     return formItemMap.map((item, index) => ({
       tab: item.label,
-      key: `${index}`,
+      key: item.key || `${index}`,
     }));
   }, [formItemMap]);
+
+  const pageContainerProps = useMemo(() => {
+    const tempProps = {
+      className: classNames(className, {
+        [styles.hidePageContainer]: hidePageContainer,
+      }),
+    };
+    if (hidePageContainer) {
+      return tempProps;
+    }
+    return {
+      ...tempProps,
+      tabList,
+      tabActiveKey: activeKey,
+      onTabChange: setActiveKey,
+    };
+  }, [hidePageContainer, className, tabList, activeKey]);
+
+  const tabsProps = useMemo(() => {
+    const tempProps = {
+      className: classNames(tabClassName, {
+        [styles.hideTabs]: !hidePageContainer,
+      }),
+      activeKey,
+    };
+    if (!hidePageContainer) {
+      return tempProps;
+    }
+    return {
+      ...tempProps,
+      onChange: setActiveKey,
+    };
+  }, [hidePageContainer, tabClassName, activeKey]);
+
   return (
-    <PageContainer
-      loading={loading}
-      breadcrumb={undefined}
-      tabList={tabList}
-      tabActiveKey={activeKey}
-      onTabChange={setActiveKey}
-      className={styles.tabWrapper}
-    >
+    <PageContainer loading={loading} breadcrumb={undefined} {...pageContainerProps}>
       <Form
         form={form}
         layout="horizontal"
@@ -69,12 +103,12 @@ function Index<T>(props: IProps<T>) {
         }}
       >
         <ProCard style={{ height: '100%' }}>
-          <Tabs activeKey={activeKey} className={styles.tabsStyle}>
+          <Tabs {...tabsProps} destroyInactiveTabPane>
             {formItemMap.map((item, index) => {
-              const { children } = item;
+              const { children, label } = item;
               return (
                 // 修改为 Tab
-                <TabPane key={`${index}`}>
+                <TabPane key={item.key || `${index}`} tab={label}>
                   {children && (
                     <Row>
                       {Object.keys(children).map((key) => {
@@ -102,7 +136,7 @@ function Index<T>(props: IProps<T>) {
             })}
           </Tabs>
         </ProCard>
-        <FooterToolbar>
+        <FooterToolbar className={styles.footerStyle}>
           <Form.Item key="button-group" wrapperCol={{ span: 24 }} style={{ textAlign: 'right' }}>
             <Space>
               {actions}

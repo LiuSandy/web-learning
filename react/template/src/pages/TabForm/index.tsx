@@ -245,7 +245,7 @@ const Index = () => {
   };
 
   return (
-    <TabForm columns={columns} formItemMap={formItemMap} onSubmit={handleSubmit} />
+    <TabForm hidePageContainer columns={columns} formItemMap={formItemMap} onSubmit={handleSubmit} />
   );
 };
 
