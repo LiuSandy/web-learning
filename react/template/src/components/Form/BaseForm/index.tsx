@@ -12,7 +12,7 @@ import type { IFormItemProps } from './interface';
 
 interface IProps<T> extends FormProps {
   items: IFormItemProps[];
-  onSubmit: (p: T) => Promise<any>;
+  onSubmit: (p: T) => void;
   refresh?: (P?: any) => void;
   loading?: boolean;
   rowProps?: RowProps;

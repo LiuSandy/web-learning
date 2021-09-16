@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { IFormItemProps } from '@/components/Form/BaseForm';
 import BaseForm from '@/components/Form/BaseForm';
 import type { FormInstance } from 'antd';
