@@ -10,6 +10,14 @@ import { FooterToolbar } from '@ant-design/pro-layout';
 
 import type { IFormItemProps } from './interface';
 
+const defaultLayout = {
+  labelCol: {
+    flex: "0 0 130px"
+  },
+  wrapperCol: {
+    flex: "auto"
+  }
+};
 interface IProps<T> extends FormProps {
   items: IFormItemProps[];
   onSubmit: (p: T) => void;
@@ -70,8 +78,7 @@ function BaseForm<T>(props: IProps<T>) {
       <Form
         form={form}
         layout="horizontal"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        {...defaultLayout}
         {...rest}
         onFinish={async (v: T) => {
           onSubmit(v);

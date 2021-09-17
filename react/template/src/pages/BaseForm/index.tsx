@@ -39,10 +39,6 @@ const Index = () => {
       field: 'input1',
       span: 16,
       child: <Input />,
-      formProps: {
-        labelCol: { span: 4 },
-        wrapperCol: { span: 20 },
-      },
     },
     {
       label: 'Input-2',

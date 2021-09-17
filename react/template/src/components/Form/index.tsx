@@ -5,6 +5,14 @@ import Item from './itemRender';
 import type { IExtColumns, IFormItemsType } from './interface';
 import styles from './index.less';
 
+const defaultLayout = {
+  labelCol: {
+    flex: "0 0 130px"
+  },
+  wrapperCol: {
+    flex: "auto"
+  }
+};
 interface IProps<T> {
   columns: IExtColumns<T>[];
   formItemMap: IFormItemsType[];
@@ -41,8 +49,7 @@ function Index<T>(props: IProps<T>) {
       <Form
         form={form}
         layout="horizontal"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        {...defaultLayout}
         initialValues={initialValues}
         className={styles.wrapper}
         onFinish={async (v: T) => {
