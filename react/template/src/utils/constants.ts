@@ -1,0 +1,1 @@
+export const IMAGE_VIEW_BASE_URL = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"

@@ -7,6 +7,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import type { RcFile, UploadChangeParam, UploadProps } from 'antd/lib/upload';
 import { getFileExtension } from '@/utils/utils';
+import ImageView from '../ImageView';
 
 interface IProps extends Omit<UploadProps, 'onChange'> {
   accept: string;
@@ -46,8 +47,11 @@ const Index: React.FC<IProps> = (props: IProps) => {
       }
       if (file.status === 'done') {
         setLoading(false);
-        if (onChange && file.response.code === '0') {
-          onChange(file.response.data);
+        // if (onChange && file.response.code === '0') {
+        //   onChange(file.response.data);
+        // }
+        if (onChange) {
+          onChange("XXX");
         }
       }
     },
@@ -72,7 +76,7 @@ const Index: React.FC<IProps> = (props: IProps) => {
       {...rest}
       onChange={handleChange}
     >
-      {value ? <img src={value} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+      {value ? <ImageView preview={false} path={value}/> : uploadButton}
     </Upload>
   );
 };
