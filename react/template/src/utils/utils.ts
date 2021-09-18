@@ -112,3 +112,8 @@ export const logTree = <T>(tree: TreeLike<T>[]): void => {
     }
   }
 };
+
+export const getFileExtension = (fileName: string) => {
+  // eslint-disable-next-line no-bitwise
+  return fileName.slice((fileName.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
+}

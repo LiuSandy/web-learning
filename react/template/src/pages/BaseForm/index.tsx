@@ -1,9 +1,8 @@
 import type { IFormItemProps } from '@/components/Form/BaseForm';
 import BaseForm from '@/components/Form/BaseForm';
+import Upload from '@/components/Upload';
 import type { FormInstance } from 'antd';
-import { Card } from 'antd';
-import { Checkbox } from 'antd';
-import { Divider, Input, Radio, Select } from 'antd';
+import { Checkbox, Card, Divider, Input, Radio, Select } from 'antd';
 
 const options = [
   { text: '全部', status: '', key: 'all' },
@@ -145,6 +144,12 @@ const Index = () => {
           })}
         </Checkbox.Group>
       ),
+    },
+    {
+      label: 'logo',
+      span: 24,
+      field: 'upload',
+      child: <Upload maxSize={5} action="" accept="jpeg,jpg,png" />,
     },
   ];
 

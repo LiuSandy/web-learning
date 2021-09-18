@@ -22,4 +22,6 @@ export default {
   ...settings,
   ...pwa,
   ...component,
+  上传文件类型限制: '您只能上传{type}文件!',
+  上传文件大小限制: '文件大小必须小于{size}MB!',
 };
