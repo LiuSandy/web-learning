@@ -55,6 +55,7 @@
     "@ant-design/pro-table": "^2.30.8",
     "@umijs/route-utils": "^1.0.36",
     "antd": "^4.14.0",
+    "canvas-datagrid": "^0.3.9",
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "moment": "^2.25.3",
@@ -64,7 +65,8 @@
     "react-dom": "^17.0.0",
     "react-helmet-async": "^1.0.4",
     "umi": "^3.5.0",
-    "umi-serve": "^1.9.10"
+    "umi-serve": "^1.9.10",
+    "xlsx": "^0.17.2"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.0.2",

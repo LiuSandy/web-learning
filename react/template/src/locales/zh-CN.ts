@@ -24,4 +24,7 @@ export default {
   ...component,
   上传文件类型限制: '您只能上传{type}文件!',
   上传文件大小限制: '文件大小必须小于{size}MB!',
+  'menu.Tab Form 组件': 'Tab Form 组件',
+  'menu.Form 组件': 'Form 组件',
+  'menu.XLSX 组件': 'XLSX 组件',
 };

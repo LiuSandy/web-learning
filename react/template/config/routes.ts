@@ -14,5 +14,10 @@
     path: '/base-form',
     name:'Form 组件',
     component:'./BaseForm'
+  },
+  {
+    path: '/excel 预览',
+    name:'XLSX 组件',
+    component:'./ExcelViewer'
   }
 ];
