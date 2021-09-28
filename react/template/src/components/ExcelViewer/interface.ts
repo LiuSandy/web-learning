@@ -9,3 +9,5 @@ export interface ISheetData {
 }
 
 export type ISheetJSON = Record<string, ISheetData>;
+
+export type ISheetHTML = Record<string,string>

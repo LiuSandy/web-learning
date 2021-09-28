@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { Upload, Button, message } from 'antd';
 import ProCard from '@ant-design/pro-card';
 import { UploadOutlined } from '@ant-design/icons';
-import type { UploadChangeParam } from 'antd/lib/upload';
+import type { RcFile, UploadChangeParam } from 'antd/lib/upload';
 import ExcelViewer from '@/components/ExcelViewer'
 
 const Index = () => {
-  const [fileResponse, setFileResponse] = useState();
+  const [fileResponse, setFileResponse] = useState<RcFile>();
   const uploadProps = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -33,7 +33,7 @@ const Index = () => {
       <Upload {...uploadProps}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
-      <ExcelViewer response={fileResponse} />
+      <ExcelViewer response={fileResponse} type='HTML' />
     </ProCard>
   );
 };
