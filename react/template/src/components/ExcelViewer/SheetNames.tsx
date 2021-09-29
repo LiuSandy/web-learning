@@ -3,6 +3,7 @@
  */
 import { useCallback } from 'react';
 import { Radio } from 'antd';
+import styles from './index.less'
 
 interface IProps {
   value: string;
@@ -21,7 +22,7 @@ const SheetNames: React.FC<IProps> = (props: IProps) => {
   );
 
   return (
-    <Radio.Group onChange={handleChange} value={value} size="small" style={{ marginTop: 16 }}>
+    <Radio.Group className={styles.sheets} onChange={handleChange} value={value} size="small">
       {sheets.map((sheet) => (
         <Radio.Button key={sheet} value={sheet}>
           {sheet}

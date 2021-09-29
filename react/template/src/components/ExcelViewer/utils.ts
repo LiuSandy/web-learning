@@ -1,4 +1,5 @@
 import type { WorkBook } from 'xlsx';
+import { cloneDeep } from 'lodash';
 import XLSX from 'xlsx';
 import type { ISheetData, ISheetHTML, ISheetJSON } from './interface';
 
@@ -51,16 +52,69 @@ export const getSheetJSONData = (wb: WorkBook) => {
 };
 
 /**
+ * sheet_to_html 字符串中构建 columns 和 rows
+ * @param html sheet_to_html 生成的 HTML 字符串
+ * @param columns 计算 A~Z
+ */
+const generateHTML = (html: string, columns: ISheetData['sheetCols']): string => {
+  const fragment = document.createElement('div');
+  fragment.innerHTML = html;
+  const trList = fragment.querySelectorAll('tr');
+  // 为每个 tr 增加索引
+  trList.forEach((tr, index) => {
+    const td = tr.querySelectorAll('td')[0];
+    const newTd = td.cloneNode();
+    const rowTd = tr.insertBefore(newTd, td) as HTMLElement;
+    if (rowTd.hasAttribute('rowspan')) {
+      // 如果有上下合并情况，取消合并
+      rowTd.removeAttribute('rowspan');
+    }
+    rowTd.setAttribute('v', `${index + 1}`);
+    rowTd.setAttribute(
+      'style',
+      'background-color: rgba(240, 240, 240, 1);width:50px !important;',
+    );
+    rowTd.innerHTML = `${index + 1}`;
+  });
+  // 新增一行 增加 A~Z
+  const newTr = document.createElement('tr');
+  const zeroTd = document.createElement('td');
+  zeroTd.setAttribute('v', '0');
+  zeroTd.innerHTML = '';
+  zeroTd.setAttribute(
+    'style',
+    'background-color: rgba(240, 240, 240, 1);width:50px !important;',
+  );
+  newTr.append(zeroTd);
+  columns.forEach(({ name }) => {
+    const td = document.createElement('td');
+    td.setAttribute('v', name);
+    td.innerHTML = name;
+    td.setAttribute(
+      'style',
+      'background-color: rgba(240, 240, 240, 1)',
+    );
+    newTr.append(td);
+  });
+  const tbody = fragment.querySelector('tbody');
+
+  tbody?.insertBefore(newTr, trList[0]);
+  return fragment.outerHTML;
+};
+
+/**
  * 读取 Excel 文件为 HTML
  */
 export const getSheetHTMLData = (wb: WorkBook) => {
   const res: ISheetHTML = {};
   const { SheetNames } = wb;
-  SheetNames.forEach((wsname) => {
+  SheetNames.forEach((wsname, index) => {
     // 当前 sheet 内容
     const ws = wb.Sheets[wsname];
-    const sheetHtml = XLSX.utils.sheet_to_html(ws);
-    res[wsname] = sheetHtml;
+    const sheetHtml = XLSX.utils.sheet_to_html(ws, { id: `sheet-${index + 1}` });
+    const sheetCols = make_cols(ws['!ref'] || '');
+    const html = generateHTML(sheetHtml, sheetCols);
+    res[wsname] = html;
   });
   return { excelHtml: res, firstSheet: SheetNames[0] };
 };

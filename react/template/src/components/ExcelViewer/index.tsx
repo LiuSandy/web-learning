@@ -74,18 +74,18 @@ const Index: React.FC<IProps> = (props: IProps) => {
   if (type === 'JSON') {
     return (
       <div className={styles.wrapper}>
-        <SheetNames sheets={Object.keys(sheet)} value={curSheet} onChange={handleClick} />
         {sheetData && sheetData.length > 0 ? (
           <CanvasDataGrid data={generateData({ ...sheet[curSheet] })} />
         ) : null}
+        <SheetNames sheets={Object.keys(sheet)} value={curSheet} onChange={handleClick} />
       </div>
     );
   }
   const html = sheetHtml[curSheet] || '';
   return (
     <div className={styles.wrapper}>
-      <SheetNames sheets={Object.keys(sheetHtml)} value={curSheet} onChange={handleClick} />
       {html && html.length > 0 ? <div className={styles.excel} dangerouslySetInnerHTML={{ __html: html }} /> : null}
+      <SheetNames sheets={Object.keys(sheetHtml)} value={curSheet} onChange={handleClick} />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { Upload, Button, message } from 'antd';
 import ProCard from '@ant-design/pro-card';
 import { UploadOutlined } from '@ant-design/icons';
 import type { RcFile, UploadChangeParam } from 'antd/lib/upload';
-import ExcelViewer from '@/components/ExcelViewer'
+import ExcelViewer from '@/components/ExcelViewer';
 
 const Index = () => {
   const [fileResponse, setFileResponse] = useState<RcFile>();
@@ -33,7 +33,7 @@ const Index = () => {
       <Upload {...uploadProps}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
-      <ExcelViewer response={fileResponse} type='HTML' />
+      <ExcelViewer response={fileResponse} type="HTML" />
     </ProCard>
   );
 };
