@@ -71,6 +71,10 @@ const Index: React.FC<IProps> = (props: IProps) => {
   }, [response, handleFileToJSON, handleFileToHTML, type]);
   const { sheetData = [] } = sheet[curSheet] || {};
 
+  if (!sheetData || sheetData.length === 0 ) {
+    return null
+  }
+
   if (type === 'JSON') {
     return (
       <div className={styles.wrapper}>

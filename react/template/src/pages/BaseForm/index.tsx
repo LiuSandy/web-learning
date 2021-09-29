@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import type { IFormItemProps } from '@/components/Form/BaseForm';
 import BaseForm from '@/components/Form/BaseForm';
 import Upload from '@/components/Upload';
+import InputModal from '@/components/InputModal';
 import type { FormInstance } from 'antd';
 import { Checkbox, Card, Divider, Input, Radio, Select } from 'antd';
 
@@ -27,131 +29,145 @@ const checkboxOptions = [
 ];
 
 const Index = () => {
-  const items: IFormItemProps[] = [
-    {
-      label: 'Input',
-      field: 'input',
-      child: <Input />,
-    },
-    {
-      label: 'Input-1',
-      field: 'input1',
-      span: 16,
-      child: <Input />,
-    },
-    {
-      label: 'Input-2',
-      field: 'input2',
-      child: <Input />,
-    },
-    {
-      label: 'Input-3',
-      field: 'input3',
-      child: <Input />,
-      formProps: {
-        rules: [
-          {
-            required: true,
-            message: 'xxx',
-          },
-        ],
+  const items: IFormItemProps[] = useMemo(() => {
+    return [
+      {
+        label: 'Input',
+        field: 'input',
+        child: <Input />,
       },
-    },
-    {
-      label: 'Input-4',
-      field: 'input4',
-      child: <Input />,
-    },
-    {
-      label: '密码',
-      field: 'password',
-      child: <Input.Password />,
-      formProps: {
-        rules: [
-          {
-            required: true,
-            message: '必填项',
-          },
-        ],
+      {
+        label: 'Input-1',
+        field: 'input1',
+        span: 16,
+        child: <Input />,
       },
-    },
-    {
-      type: 'text',
-      field: 'Divider',
-      child: <Divider>Select</Divider>,
-    },
-    {
-      label: 'Select',
-      field: 'select',
-      child: () => {
-        return (
-          <Select style={{ width: '100%' }}>
-            {options.map((i) => {
-              return (
-                <Select.Option key={i.key} value={i.key}>
-                  {i.text}
-                </Select.Option>
-              );
-            })}
-          </Select>
-        );
+      {
+        label: 'Input-2',
+        field: 'input2',
+        child: <Input />,
       },
-    },
-    {
-      label: 'Radio',
-      field: 'radio',
-      span: 16,
-      formProps: {
-        dependencies: ['select'],
-      },
-      child: (formRef: FormInstance) => {
-        const selectType = formRef.getFieldValue('select');
-        return (
-          <Radio.Group style={{ width: '100%' }} disabled={selectType === 'close'}>
-            {radioOptions.map((i) => {
-              return (
-                <Radio key={i.value} value={i.value}>
-                  {i.text}
-                </Radio>
-              );
-            })}
-          </Radio.Group>
-        );
-      },
-    },
-    {
-      label: 'CheckBox',
-      field: 'checkbox',
-      span: 16,
-      formProps: {
-        dependencies: ['select'],
-        updateProps: (formRef, c) => {
-          const v = formRef.getFieldValue('select');
-          return {
-            ...c,
-            rules: [...(c?.rules || []), { required: v === 'running', message: '必填项' }],
-          };
+      {
+        label: 'Input-3',
+        field: 'input3',
+        child: <Input />,
+        formProps: {
+          rules: [
+            {
+              required: true,
+              message: 'xxx',
+            },
+          ],
         },
       },
-      child: (
-        <Checkbox.Group style={{ width: '100%' }}>
-          {checkboxOptions.map((i) => {
-            return (
-              <Checkbox key={i.value} value={i.value}>
-                {i.text}
-              </Checkbox>
-            );
-          })}
-        </Checkbox.Group>
-      ),
-    },
-    {
-      label: 'logo',
-      span: 24,
-      field: 'upload',
-      child: <Upload maxSize={5} action="" accept="jpeg,jpg,png" />,
-    },
-  ];
+      {
+        label: 'Input-4',
+        field: 'input4',
+        child: <Input />,
+      },
+      {
+        label: '密码',
+        field: 'password',
+        child: <Input.Password />,
+        formProps: {
+          rules: [
+            {
+              required: true,
+              message: '必填项',
+            },
+          ],
+        },
+      },
+      {
+        type: 'text',
+        field: 'Divider',
+        child: <Divider>Select</Divider>,
+      },
+      {
+        label: 'Select',
+        field: 'select',
+        child: () => {
+          return (
+            <Select style={{ width: '100%' }}>
+              {options.map((i) => {
+                return (
+                  <Select.Option key={i.key} value={i.key}>
+                    {i.text}
+                  </Select.Option>
+                );
+              })}
+            </Select>
+          );
+        },
+      },
+      {
+        label: 'Radio',
+        field: 'radio',
+        span: 16,
+        formProps: {
+          dependencies: ['select'],
+        },
+        child: (formRef: FormInstance) => {
+          const selectType = formRef.getFieldValue('select');
+          return (
+            <Radio.Group style={{ width: '100%' }} disabled={selectType === 'close'}>
+              {radioOptions.map((i) => {
+                return (
+                  <Radio key={i.value} value={i.value}>
+                    {i.text}
+                  </Radio>
+                );
+              })}
+            </Radio.Group>
+          );
+        },
+      },
+      {
+        label: 'CheckBox',
+        field: 'checkbox',
+        span: 16,
+        formProps: {
+          dependencies: ['select'],
+          updateProps: (formRef, c) => {
+            const v = formRef.getFieldValue('select');
+            return {
+              ...c,
+              rules: [...(c?.rules || []), { required: v === 'running', message: '必填项' }],
+            };
+          },
+        },
+        child: (
+          <Checkbox.Group style={{ width: '100%' }}>
+            {checkboxOptions.map((i) => {
+              return (
+                <Checkbox key={i.value} value={i.value}>
+                  {i.text}
+                </Checkbox>
+              );
+            })}
+          </Checkbox.Group>
+        ),
+      },
+      {
+        label: 'auto-complete',
+        field: 'auto-complete',
+        child: (
+          <InputModal
+            options={[
+              { value: 'a', label: 'Light' },
+              { value: 'b', label: 'Bamboo' },
+            ]}
+          />
+        ),
+      },
+      {
+        label: 'logo',
+        span: 24,
+        field: 'upload',
+        child: <Upload maxSize={5} action="" accept="jpeg,jpg,png" />,
+      },
+    ];
+  }, []);
 
   return (
     <Card>

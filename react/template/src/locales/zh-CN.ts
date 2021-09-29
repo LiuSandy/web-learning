@@ -27,4 +27,6 @@ export default {
   'menu.Tab Form 组件': 'Tab Form 组件',
   'menu.Form 组件': 'Form 组件',
   'menu.XLSX 组件': 'XLSX 组件',
+  保存: '保存',
+  重置: '重置',
 };

@@ -3,6 +3,7 @@
  */
 
 import React, { useEffect, useMemo } from 'react';
+import {useWhyDidYouUpdate} from 'ahooks'
 import { useIntl } from 'umi';
 import type { FormInstance, FormProps, RowProps } from 'antd';
 import { Form, Row, Col, Button, Space, Spin } from 'antd';
@@ -42,7 +43,7 @@ function BaseForm<T>(props: IProps<T>) {
   } = props;
   const [form] = Form.useForm();
   const { formatMessage } = useIntl();
-
+  useWhyDidYouUpdate("useWhyDidYouUpdate",props)
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
@@ -101,7 +102,7 @@ function BaseForm<T>(props: IProps<T>) {
             }
             const { dependencies = [], updateProps, ...formRest } = formProps;
             return (
-              <Form.Item noStyle dependencies={dependencies}>
+              <Form.Item noStyle dependencies={dependencies} key={field}>
                 {(formRef: FormInstance) => {
                   const newProps = updateProps ? updateProps(form, formRest) : formRest;
                   let element: React.ReactElement | null = null;
