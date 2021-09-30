@@ -2,30 +2,28 @@
  * Input + Select + Modal
  * 适用场景，输入时自动联想已存在内容，也可以通过对话框的方式进行搜索
  */
-import React, { useCallback } from 'react';
-import { useBoolean } from 'ahooks';
+import React from 'react';
 import { AutoComplete, Input, Modal } from 'antd';
-import type { AutoCompleteProps } from 'antd';
+import type { AutoCompleteProps, ModalProps } from 'antd';
 
 interface IProps extends Omit<AutoCompleteProps, 'onChange'> {
   options?: any[];
+  /* 表单数据 */
   value?: string;
   onChange?: (P: IProps['value']) => void;
+  children?: React.ReactNode;
+  /* 对话框属性 */
+  visible?: boolean;
+  onOk?: () => void;
+  onCancel?: () => void;
+  modalProps?: ModalProps;
+  onModalSearch?: () => void;
 }
 
 const Index: React.FC<IProps> = (props: IProps) => {
-  const { options, value, onChange } = props;
-  const [visible, { toggle }] = useBoolean(false);
+  const { options, value, children, onChange, modalProps, onModalSearch, ...rest } = props;
 
   const selectLabel = options?.find((item) => item.value === value)?.label || '';
-  console.log("")
-  const handleOnOk = useCallback(() => {
-    toggle(false);
-  }, [toggle]);
-
-  const handleOnCancel = useCallback(() => {
-    toggle(false);
-  }, [toggle]);
 
   return (
     <>
@@ -35,13 +33,12 @@ const Index: React.FC<IProps> = (props: IProps) => {
         options={options}
         placeholder="请输入"
         onChange={onChange}
+        {...rest}
       >
-        <Input.Search onSearch={()=>{toggle(true)}} />
+        <Input.Search onSearch={onModalSearch} />
       </AutoComplete>
-      <Modal title="Basic Modal" visible={visible} onOk={handleOnOk} onCancel={handleOnCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+      <Modal footer={null} {...modalProps} {...rest}>
+        {children}
       </Modal>
     </>
   );

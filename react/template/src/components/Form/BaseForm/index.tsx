@@ -3,7 +3,6 @@
  */
 
 import React, { useEffect, useMemo } from 'react';
-import {useWhyDidYouUpdate} from 'ahooks'
 import { useIntl } from 'umi';
 import type { FormInstance, FormProps, RowProps } from 'antd';
 import { Form, Row, Col, Button, Space, Spin } from 'antd';
@@ -28,6 +27,7 @@ interface IProps<T> extends FormProps {
   actions?: JSX.Element | JSX.Element[] | null; // 扩展操作按钮
   footer?: boolean | React.ReactElement | null;
 }
+export * from './interface';
 
 function BaseForm<T>(props: IProps<T>) {
   const {
@@ -43,7 +43,6 @@ function BaseForm<T>(props: IProps<T>) {
   } = props;
   const [form] = Form.useForm();
   const { formatMessage } = useIntl();
-  useWhyDidYouUpdate("useWhyDidYouUpdate",props)
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
@@ -128,7 +127,5 @@ function BaseForm<T>(props: IProps<T>) {
     </Spin>
   );
 }
-
-export * from './interface';
 
 export default BaseForm;

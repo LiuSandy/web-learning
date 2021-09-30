@@ -3,6 +3,7 @@ import type { IFormItemProps } from '@/components/Form/BaseForm';
 import BaseForm from '@/components/Form/BaseForm';
 import Upload from '@/components/Upload';
 import InputModal from '@/components/InputModal';
+import Customer from './Customer'
 import type { FormInstance } from 'antd';
 import { Checkbox, Card, Divider, Input, Radio, Select } from 'antd';
 
@@ -152,12 +153,7 @@ const Index = () => {
         label: 'auto-complete',
         field: 'auto-complete',
         child: (
-          <InputModal
-            options={[
-              { value: 'a', label: 'Light' },
-              { value: 'b', label: 'Bamboo' },
-            ]}
-          />
+          <Customer />
         ),
       },
       {
