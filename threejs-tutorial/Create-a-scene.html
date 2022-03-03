@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="puidu-webgl-output">
+
+  </div>
+  <!-- <script src="../../three.js-dev/build/three.js"></script> -->
+  <script type="module">
+    import * as THREE from 'https://cdn.skypack.dev/three';
+
+    // 创建一个场景，用于保存、跟踪所要渲染的物体和使用的光源
+    const scene = new THREE.Scene();
+    // 相机 PerspectiveCamera 透视摄像机(fov,aspect ratio,near,far)
+    /**
+     * fov: 视野角度，在显示器看到的场景范围, 单位是角度
+     * aspect ratio: 长宽比
+     * near: 进截面
+     * far: 远截面
+     * 当物体某些部分比摄像机的远截面远或者比近截面近的时候
+     */
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // 渲染器
+    const renderer = new THREE.WebGLRenderer();
+    // 设置渲染器大小
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // 将渲染器添加到文档中
+    document.getElementById("puidu-webgl-output").appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry();
+
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+    const cube = new THREE.Mesh(geometry, material);
+
+
+
+    scene.add(cube);
+
+    camera.position.z = 5
+
+    function animate() {
+      window.requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera)
+    }
+
+    animate();
+  </script>
+</body>
+
+</html>
