@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sun-earth-moon</title>
+</head>
+
+<body>
+  <div id="webgl-output"></div>
+  <script type="module">
+    import * as THREE from './node_modules/three/build/three.module.js'
+    import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js'
+
+    const SUN_RADIUS = 10;
+    const EARTH_RADIUS = 3;
+    const MOON_RADIUS = 1;
+
+    function geometryFactory(radius, widthSegments = 16, heightSegments = 16) {
+      return new THREE.SphereGeometry(radius, widthSegments, heightSegments)
+    }
+
+    // 创建一个场景
+    const scene = new THREE.Scene()
+    // 设置摄像机 仰角、长宽比、近，远
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 50, 50);
+    camera.up.set(0, 0, 1)
+    camera.lookAt(scene.position);
+    // 设置一个渲染器
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    // 设置渲染器初始颜色
+    renderer.setClearColor(new THREE.Color(0xEEEEEE));
+    // 设置渲染器大小
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // 把渲染器添加到 dom 元素中
+    document.getElementById("webgl-output").appendChild(renderer.domElement);
+
+    // 添加太阳系 Scene
+    const rootScene = new THREE.Scene();
+    scene.add(rootScene)
+    // 添加灯光
+    {
+      const color = 0xffffff;
+      const intensity = 3;
+      const light = new THREE.PointLight(color, intensity);
+      rootScene.add(light);
+    }
+
+    // 创建 球 几何体 (太阳)
+    const sunGeometry = geometryFactory(SUN_RADIUS);
+    const sunMateial = new THREE.MeshPhongMaterial({ emissive: 0xFFFF00 });
+    const sun = new THREE.Mesh(sunGeometry, sunMateial);
+    rootScene.add(sun);
+
+    // 创建 球 几何体（地球）
+    const earthGeometry = geometryFactory(EARTH_RADIUS);
+    const earthMateial = new THREE.MeshPhongMaterial({
+      color: 0x2233ff,
+      emissive: 0x112244
+    });
+    const earth = new THREE.Mesh(earthGeometry, earthMateial);
+    earth.position.x = 30;
+    rootScene.add(earth);
+
+    // 创建 球 几何体（月亮）
+    const moonGeometry = geometryFactory(MOON_RADIUS);
+    const moonMateial = new THREE.MeshPhongMaterial({
+      color: 0x888888,
+      emissive: 0x222222
+    });
+    const moon = new THREE.Mesh(moonGeometry, moonMateial);
+    moon.position.x = 36;
+    rootScene.add(moon);
+
+    renderer.render(scene, camera)
+
+  </script>
+</body>
+
+</html>
