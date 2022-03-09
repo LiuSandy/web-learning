@@ -2,26 +2,34 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sun-earth-moon</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sun-earth-moon</title>
+    <style>
+        * {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="webgl-output"></div>
-  <script type="module">
+<div id="webgl-output"></div>
+<script type="module">
     import * as THREE from './node_modules/three/build/three.module.js'
-    import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js'
+    import {OrbitControls} from './node_modules/three/examples/jsm/controls/OrbitControls.js'
 
     const SUN_RADIUS = 10;
     const EARTH_RADIUS = 3;
     const MOON_RADIUS = 1;
 
-    function geometryFactory(radius, widthSegments = 16, heightSegments = 16) {
-      return new THREE.SphereGeometry(radius, widthSegments, heightSegments)
+    function geometryFactory(radius = 1, widthSegments = 6, heightSegments = 6) {
+        return new THREE.SphereGeometry(radius, widthSegments, heightSegments)
     }
 
+    // 创建一个对象存储需要旋转的物体
+    const objects = []
     // 创建一个场景
     const scene = new THREE.Scene()
     // 设置摄像机 仰角、长宽比、近，远
@@ -30,7 +38,7 @@
     camera.up.set(0, 0, 1)
     camera.lookAt(scene.position);
     // 设置一个渲染器
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({antialias: true});
     // 设置渲染器初始颜色
     renderer.setClearColor(new THREE.Color(0xEEEEEE));
     // 设置渲染器大小
@@ -39,45 +47,69 @@
     document.getElementById("webgl-output").appendChild(renderer.domElement);
 
     // 添加太阳系 Scene
-    const rootScene = new THREE.Scene();
-    scene.add(rootScene)
+    const rootScene = new THREE.Object3D();
+    scene.add(rootScene);
+    objects.push(rootScene);
     // 添加灯光
     {
-      const color = 0xffffff;
-      const intensity = 3;
-      const light = new THREE.PointLight(color, intensity);
-      rootScene.add(light);
+        const color = 0xffffff;
+        const intensity = 3;
+        const light = new THREE.PointLight(color, intensity);
+        rootScene.add(light);
     }
 
     // 创建 球 几何体 (太阳)
-    const sunGeometry = geometryFactory(SUN_RADIUS);
-    const sunMateial = new THREE.MeshPhongMaterial({ emissive: 0xFFFF00 });
-    const sun = new THREE.Mesh(sunGeometry, sunMateial);
+    const sunGeometry = geometryFactory();
+    const sunMaterial = new THREE.MeshPhongMaterial({emissive: 0xFFFF00});
+    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+    sun.scale.set(10, 10, 10)
     rootScene.add(sun);
+    objects.push(sun);
 
+    const earthScene = new THREE.Object3D();
+    earthScene.position.x = 25;
+    rootScene.add(earthScene);
+    objects.push(earthScene);
     // 创建 球 几何体（地球）
-    const earthGeometry = geometryFactory(EARTH_RADIUS);
-    const earthMateial = new THREE.MeshPhongMaterial({
-      color: 0x2233ff,
-      emissive: 0x112244
+    const earthGeometry = geometryFactory();
+    const earthMaterial = new THREE.MeshPhongMaterial({
+        color: 0x2233ff,
+        emissive: 0x112244
     });
-    const earth = new THREE.Mesh(earthGeometry, earthMateial);
-    earth.position.x = 30;
-    rootScene.add(earth);
+    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+    earth.scale.set(2, 2, 2);
+    earthScene.add(earth);
+    objects.push(earth);
 
+    const moonScene = new THREE.Object3D();
+    moonScene.position.x = 5
+    earthScene.add(moonScene);
+    objects.push(moonScene);
     // 创建 球 几何体（月亮）
-    const moonGeometry = geometryFactory(MOON_RADIUS);
-    const moonMateial = new THREE.MeshPhongMaterial({
-      color: 0x888888,
-      emissive: 0x222222
+    const moonGeometry = geometryFactory();
+    const moonMaterial = new THREE.MeshPhongMaterial({
+        color: 0x888888,
+        emissive: 0x222222
     });
-    const moon = new THREE.Mesh(moonGeometry, moonMateial);
-    moon.position.x = 36;
-    rootScene.add(moon);
+    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+    moonScene.add(moon);
+    objects.push(moon);
 
-    renderer.render(scene, camera)
+    function animated(time) {
+        time *= 0.001;
 
-  </script>
+        // 旋转物体
+        objects.forEach(root=>{
+          root.rotation.y = time
+        })
+
+        renderer.render(scene, camera);
+
+        window.requestAnimationFrame(animated)
+    }
+
+    animated()
+</script>
 </body>
 
 </html>
