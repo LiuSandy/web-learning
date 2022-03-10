@@ -28,7 +28,7 @@
     const EARTH_RADIUS = 3;
     const MOON_RADIUS = 1;
 
-    function geometryFactory(radius = 1, widthSegments = 6, heightSegments = 6) {
+    function geometryFactory(radius = 1, widthSegments = 36, heightSegments = 36) {
         return new THREE.SphereGeometry(radius, widthSegments, heightSegments)
     }
 
@@ -46,9 +46,11 @@
     const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
     // 设置渲染器初始颜色
     renderer.setClearColor(new THREE.Color(0xEEEEEE));
-    // // 设置渲染器大小
-    // renderer.setSize(window.innerWidth, window.innerHeight);
+    const textureLoader = new THREE.TextureLoader();
 
+    // 设置背景图
+    const bgTexture = textureLoader.load('./assets/background.jpeg');
+    scene.background = bgTexture;
     // 添加太阳系 Scene
     const rootScene = new THREE.Object3D();
     scene.add(rootScene);
@@ -75,17 +77,21 @@
     objects.push(earthScene);
     // 创建 球 几何体（地球）
     const earthGeometry = geometryFactory();
+
+
+    const earthTexture = textureLoader.load('./assets/earth.jpeg')
+    const earthNormalTexture = textureLoader.load('./assets/earth_normal.webp')
     const earthMaterial = new THREE.MeshPhongMaterial({
-        color: 0x2233ff,
-        emissive: 0x112244
+        map: earthTexture,
+        normalMap: earthNormalTexture,
     });
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    earth.scale.set(2, 2, 2);
+    earth.scale.set(5, 5, 5);
     earthScene.add(earth);
     objects.push(earth);
 
     const moonScene = new THREE.Object3D();
-    moonScene.position.x = 5
+    moonScene.position.x = 10;
     earthScene.add(moonScene);
     objects.push(moonScene);
     // 创建 球 几何体（月亮）
@@ -123,7 +129,7 @@
 
         // 旋转物体
         objects.forEach(root => {
-            root.rotation.y = time
+            // root.rotation.y = time
         })
 
         renderer.render(scene, camera);
