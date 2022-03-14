@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>render-3D-models</title>
+  <style>
+    * {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #webgl-output {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="webgl-output"></canvas>
+  <script type="module">
+    import * as THREE from './node_modules/three/build/three.module.js'
+    import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js'
+    import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+    import { RGBELoader } from './node_modules/three/examples/jsm/loaders/RGBELoader.js';
+
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(30, 40, 50);
+    camera.lookAt(scene.position);
+
+    const canvas = document.getElementById("webgl-output");
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+    // 设置渲染器初始颜色
+    renderer.setClearColor(new THREE.Color(0xEEEEEE));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    // renderer.toneMappingExposure = 1;
+    // renderer.outputEncoding = THREE.sRGBEncoding;
+    // new RGBELoader()
+    //   .setPath('./assets/')
+    //   .load("person.glb", texture => {
+    //     texture.mapping = THREE.EquirectangularReflectionMapping;
+
+    //     scene.background = texture;
+    //     scene.environment = texture;
+
+    //     rende();
+    //   })
+    // 创建地面
+    const planGeometry = new THREE.PlaneGeometry(100, 100);
+    // 地面几何体使用什么材质
+    const planMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
+    // 创建地面
+    const plan = new THREE.Mesh(planGeometry, planMaterial);
+
+    // 设置地面移动位置和角度
+    plan.rotation.x = -0.5 * Math.PI;
+    plan.position.x = 10;
+    plan.position.y = 0;
+    plan.position.z = 0;
+    // plan.castShadow = true;
+    // 设置地面接收阴影
+    plan.receiveShadow = true;
+    scene.add(plan);
+
+    // 添加一个立方体
+    const cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
+    // 添加材质,MeshLambertMaterial 需要添加光源
+    const cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.set(-10, 2, 0);
+    cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add(cube);
+
+    const loader = new GLTFLoader();
+    loader.load('./assets/person.glb', gltf => {
+
+      const sword = gltf.scene
+      sword.scale.set(10, 10, 10);
+      // sword.position.y = 4;
+      sword.traverse((object) => {
+        if (object.isMesh) object.castShadow = true;
+      });
+      scene.add(sword);
+      render();
+    })
+
+    {
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+      hemiLight.position.set(0, 20, 0);
+      // scene.add(hemiLight);
+
+      const color = 0xffffff;
+      const intensity = 1;
+      const dirLight = new THREE.DirectionalLight(color, intensity);
+      dirLight.position.set(-100, 60, 100)
+      dirLight.castShadow = true;
+      scene.add(dirLight);
+    }
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.addEventListener('change', render); // use if there is no animation loop
+    controls.update();
+
+    function render() {
+      renderer.render(scene, camera);
+    }
+    render()
+  </script>
+</body>
+
+</html>
