@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lights</title>
+  <style>
+    * {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #webgl-output {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="webgl-output"></canvas>
+  <script type="module">
+    import * as THREE from './node_modules/three/build/three.module.js';
+    import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js';
+    import { GUI } from "https://threejs.org/examples/jsm/libs/lil-gui.module.min.js";
+
+    let camera, scene, renderer, controls
+    const canvas = document.getElementById("webgl-output")
+    {
+      // 创建场景
+      scene = new THREE.Scene();
+    }
+    {
+      // 创建render
+
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true
+      })
+      renderer.setClearColor(new THREE.Color(0xEEEEEE));
+      renderer.setPixelRatio(window.devicePixelRatio);
+    }
+    {
+      // 创建 camera
+      const fov = 45;
+      const aspect = window.innerWidth / window.innerHeight;
+      const near = 0.1;
+      const far = 1000;
+      camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      camera.position.set(0, 10, 20);
+    }
+
+    {
+      // 创建控制器
+      controls = new OrbitControls(camera, canvas);
+      controls.target.set(0, 5, 0);
+      controls.update();
+    }
+
+    {
+      // 创建地平面
+      const planeSize = 50;
+      const loader = new THREE.TextureLoader();
+      const texture = loader.load('./assets/checker.png');
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.magFliter = THREE.NearestFilter;
+      const repeats = planeSize / 2
+      texture.repeat.set(repeats, repeats)
+
+      const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+      const planeMaterial = new THREE.MeshPhongMaterial({
+        map: texture,
+        side: THREE.DoubleSize
+      })
+      const planeMesh = new THREE.Mesh(planeGeo, planeMaterial);
+      planeMesh.rotation.x = Math.PI * -.5;
+      scene.add(planeMesh)
+    }
+
+    {
+      // 添加立方体
+      const cubeSize = 4;
+      const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+      const cubeMatreial = new THREE.MeshPhongMaterial({
+        color: '#8AC'
+      });
+      const cubeMesh = new THREE.Mesh(cubeGeo, cubeMatreial);
+      cubeMesh.position.set(cubeSize + 1, cubeSize / 2, 0);
+      scene.add(cubeMesh)
+    }
+
+    {
+      // 添加球体
+      const sphereRadius = 3;
+      const sphereWidthDivisions = 32;
+      const sphereHeightDivisions = 16;
+      const sphereGeo = new THREE.SphereGeometry(sphereRadius, sphereWidthDivisions, sphereHeightDivisions);
+      const sphereMaterial = new THREE.MeshPhongMaterial({ color: '#CA8' });
+      const sphereMesh = new THREE.Mesh(sphereGeo, sphereMaterial);
+      sphereMesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
+      scene.add(sphereMesh)
+    }
+
+    class ColorGuiHelper {
+      constructor(object, prop) {
+        this.object = object;
+        this.prop = prop
+      }
+
+      get value() {
+        return `#${this.object[this.prop]}.getHexString()`;
+      }
+
+      set value(hexString) {
+        this.object[this.prop].set(hexString)
+      }
+    }
+
+
+    {
+      // 添加光源 - 环境光
+      const color = 0xffffff;
+      const intensity = 1;
+      const light = new THREE.AmbientLight(color, intensity);
+      scene.add(light);
+
+      const gui = new GUI();
+      gui.addColor(new ColorGuiHelper(light, 'color'), 'value').name('color');
+      gui.add(light, 'intensity', 0, 2, 0.01)
+    }
+
+
+    function render() {
+
+      renderer.render(scene, camera);
+
+      window.requestAnimationFrame(render);
+    }
+
+    render()
+
+  </script>
+</body>
+
+</html>
