@@ -17,3 +17,11 @@ color = materialColor * light.color * light.intensity;
 > 常常用来表现太阳光照的效果。也就是平行光
 
 其中 `light.target` 表示方向光的方向是从他的位置照到目标点的位置
+
+## 点光源（PointLight）
+> 表示从一个点向任何方向发射出光线的一种光照效果
+
+点光源（PointLight）有额外的一个范围（distance）属性。 如果 distance 设为 0，则光线可以照射到无限远处。如果大于 0，则只可以照射到指定的范围，光照强度在这个过程中逐渐衰减，在光源位置时，intensity 是设定的大小，在距离光源 distance 位置的时候，intensity 为 0。
+
+## 聚光灯（SpotLight）
+> 聚光灯可以看成是一个点光源被一个圆锥体限制住了光照的范围。实际上有两个圆锥，内圆锥和外圆锥。光照强度在两个锥体之间从设定的强度递减到 0

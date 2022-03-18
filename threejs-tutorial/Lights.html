@@ -209,14 +209,112 @@
 
       makeXYZGUI(light.position, 'position', updatLight);
       makeXYZGUI(light.target.position, 'target', updatLight);
+    }
 
+    // 添加点光源
+    function addPointLight() {
+
+      class ColorGUIHelper {
+        constructor(node, prop) {
+          this.node = node;
+          this.prop = prop;
+        }
+
+        get value() {
+          return `#${this.node[this.prop].getHexString()}`
+        }
+
+        set value(hexString) {
+          this.node[this.prop].set(hexString);
+        }
+      }
+
+      const color = 0xffffff;
+      const intensity = 1;
+      const light = new THREE.PointLight(color, intensity);
+      light.position.set(0, 10, 0);
+      scene.add(light);
+
+      const helper = new THREE.PointLightHelper(light);
+      scene.add(helper);
+
+      function updateLight() {
+        helper.update()
+      }
+      updateLight()
+
+      const gui = new GUI();
+      gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
+      gui.add(light, 'intensity', 0, 2, 0.01);
+      gui.add(light, 'distance', 0, 40).onChange(updateLight);
+
+      function makeXYZGUI(vector3, name, onChange) {
+        const folder = gui.addFolder(name);
+        folder.add(vector3, 'x', -10, 10).onChange(onChange);
+        folder.add(vector3, 'y', -10, 10).onChange(onChange);
+        folder.add(vector3, 'z', -10, 10).onChange(onChange);
+        folder.open();
+      }
+
+      makeXYZGUI(light.position, 'position', updateLight);
+    }
+
+    function addSpotLight() {
+      class ColorGUIHelper {
+        constructor(node, prop) {
+          this.node = node;
+          this.prop = prop;
+        }
+
+        get value() {
+          return `#${this.node[this.prop].getHexString()}`
+        }
+
+        set value(hexString) {
+          this.node[this.prop].set(hexString);
+        }
+      }
+
+      class DegRadHelper {
+        constructor(node, prop) {
+          this.node = node;
+          this.prop = prop;
+        }
+
+        get value() {
+          return THREE.MathUtils.radToDeg(this.node[this.prop])
+        }
+
+        set value(v) {
+          this.node[this.prop] = THREE.MathUtils.degToRad(v)
+        }
+      }
+
+      const color = 0xffffff;
+      const intensity = 1;
+      const light = new THREE.SpotLight(color, intensity);
+      light.position.set(0, 10, 0)
+      scene.add(light);
+      scene.add(light.target);
+
+      const helper = new THREE.SpotLightHelper(light);
+      scene.add(helper)
+
+      function updateLight() {
+        helper.update();
+      }
+      updateLight();
+      const gui = new GUI()
+      gui.add(new DegRadHelper(light, 'angle'), 'value', 0, 90).name('angle').onChange(updateLight);
 
 
     }
+
     // addAmbientLight();
     // addHemisphereLight();
-    addDirectionalLight()
-
+    // addDirectionalLight()
+    // addPointLight();
+    addSpotLight()
 
     function render() {
       renderer.render(scene, camera);
