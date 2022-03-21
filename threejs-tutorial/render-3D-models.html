@@ -103,8 +103,8 @@
 
       const color = 0xffffff;
       const intensity = 1;
-      const dirLight = new THREE.DirectionalLight(color, intensity);
-      dirLight.position.set(0, 1, 0)
+      const dirLight = new THREE.SpotLight(color, intensity);
+      dirLight.position.set(-100, 100, 0)
       dirLight.castShadow = true;
       scene.add(dirLight);
     }
