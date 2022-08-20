@@ -3,8 +3,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
-    "dev": "webpack serve --config ./bundler/webpack.dev.js",
-    "deploy": "vercel --prod"
+    "dev": "webpack serve --config ./bundler/webpack.dev.js"
   },
   "dependencies": {
     "@babel/core": "^7.17.10",
